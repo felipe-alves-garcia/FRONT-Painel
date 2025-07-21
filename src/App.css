@@ -1,0 +1,101 @@
+/*App*/
+
+.app{
+    min-height: 100vh;
+}
+
+/*Classes*/
+
+.bg1{
+    background-color: #545CF5;
+}
+.bg2{
+    background-color: #00B3FF;
+}
+.bg3{
+    background-color: red;
+}
+.bg4{
+    background-color: #E5E7FF;
+    border: solid 2px #545CF5;
+}
+.tx1{
+    color:#545CF5;
+}
+
+.ho1{
+    transition: 200ms ease-in-out;
+    cursor:pointer;
+}
+.ho1:hover{
+    transform: scale(0.98);
+    opacity: 0.9;
+}
+.a{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Login*/
+
+#loginUnidades{
+    height: 100vh;
+}
+#loginUnidades > div > button{
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family:Arial, Helvetica, sans-serif;
+    color:white;
+    border:none;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+    border-radius:15px
+}
+#input > input{
+    line-height: 4rem;
+    border:2px #00B3FF solid;
+    border-radius: 100px;
+    outline: none;
+    font-size: 1rem;
+    padding-left: 6rem;
+    color:rgb(56, 56, 56);
+}
+#input > div{
+    line-height:4rem;
+    border:2px #00B3FF solid;
+    position:absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color:white;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+}
+#input > select{
+    appearance: none;
+    height: 4.3rem;
+    border:2px #00B3FF solid;
+    border-radius: 100px;
+    outline: none;
+    font-size: 1rem;
+    padding-left: 6rem;
+    padding-right:7rem;
+    color:rgb(56, 56, 56);
+}
+
+/*Home Admin (Unidades)*/
+#numbers{
+    background: #D5ACE8;
+    background: linear-gradient(225deg, rgba(213, 172, 232, 1) 0%, rgba(142, 148, 255, 1) 100%);
+}
+#numbers2{
+    background: #D5ACE8;
+    background: linear-gradient(45deg, rgba(213, 172, 232, 1) 0%, rgba(142, 148, 255, 1) 100%);
+}
+
+/*EditUnidade*/
+#divUnidade{
+    background: #8E94FF;
+    background: linear-gradient(45deg, rgba(142, 148, 255, 1) 19%, rgba(0, 179, 255, 1) 47%, rgba(161, 184, 242, 1) 73%, rgba(213, 172, 232, 1) 100%);
+}
