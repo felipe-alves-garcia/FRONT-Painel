@@ -21,10 +21,10 @@ function Header (props){
                     <a href="/admin/home" className="ho1">
                         <img className="ms-4" src={logo} alt="Prefeitura Municipal de Parobé"/>    
                     </a>
-                    <a href="/link" className={`ho1 a text-white fs-3 me-5 ${history}`}  onClick={(e) => { e.preventDefault(); window.history.back(); }}>
+                    <a href="/link" className={`ho1 a text-danger fs-3 me-5 ${history}`}  onClick={(e) => { e.preventDefault(); window.history.back(); }}>
                         <i className="bi bi-box-arrow-left"></i>
                     </a>
-                    <a href={back} className={`ho1 a text-white fs-3 me-5 ${login}`}>
+                    <a href={back} className={`ho1 a text-danger fs-3 me-5 ${login}`}>
                         <i className="bi bi-box-arrow-left"></i>
                     </a>
                 </div>

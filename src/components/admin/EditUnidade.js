@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
 
-import Header from "./Header"
+import Header from "../Header"
 
 function EditUnidade (){
     const navigate = useNavigate();
@@ -56,7 +56,6 @@ function EditUnidade (){
             navigate("/admin/home");
         }).catch((error) => {
             console.log(error);
-            navigate("/admin/home");
         })
     }
 

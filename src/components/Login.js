@@ -48,7 +48,12 @@ function Login (){
         e.preventDefault();
         axios.get(`${url}/login/${id}/${login}/${password}`).then((resp) => {
             localStorage.setItem("user", JSON.stringify(resp.data.data));
-            if (resp.data.status) navigate("/admin/home");
+            if (resp.data.status){
+                if(resp.data.data.tipo === "admin")
+                    navigate("/admin/home")
+                if(resp.data.data.tipo === "triagem")
+                    navigate("/triagem/unidade/"+id)
+            }
         }).catch((error) => {
             console.log(error);
         })

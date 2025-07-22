@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-import Header from "./Header.js"
+import Header from "../Header.js"
 
-function Home (){
+function Unidades (){
     const [unidades, setUnidades] = useState([]);
     const url = "http://localhost:7002";
 
@@ -91,4 +91,4 @@ function Home (){
     )
 }
 
-export default Home;
+export default Unidades;

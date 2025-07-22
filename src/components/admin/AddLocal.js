@@ -1,13 +1,12 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
-import Header from "./Header"
+import Header from "../Header"
 
-function AddUnidade (){
+function AddLocal (){
 
-    const navigate = useNavigate()
-
+    const { id } = useParams()
     const [ user, setUser ] = useState({});
     const [ name, setName ] = useState("");
     const url = "http://localhost:7002"
@@ -18,8 +17,8 @@ function AddUnidade (){
     
     function funAdd (e){
         e.preventDefault();
-        if(name !== ""){
-            axios.post(`${url}/unidade/add`, {
+        if (name !== ""){
+            axios.post(`${url}/unidade/local/add/${id}`, {
                 "name":name
             }, {
                 headers:{
@@ -30,7 +29,7 @@ function AddUnidade (){
             }).then((resp) => {
                 console.log(resp.data);
                 if (resp.data.status)
-                    navigate("/admin/home")
+                    window.history.back();
             }).catch((error) => {
                 console.log(error);
             })    
@@ -45,7 +44,7 @@ function AddUnidade (){
                 <div className="container-fluid px-5 pb-5">
                     <div className="row">
                         <div className="col-12 mt-5">
-                            <h1 className="fw-bold fs-2 mt-4 mb-5">ADICIONAR UNIDADE</h1>
+                            <h1 className="fw-bold fs-2 mt-4 mb-5">ADICIONAR LOCAL</h1>
                         </div>
                         <form onSubmit={(e) => {funAdd(e)}}>
                             <div className="mt-5">
@@ -71,4 +70,4 @@ function AddUnidade (){
     )
 }
 
-export default AddUnidade
+export default AddLocal

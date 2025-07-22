@@ -6,6 +6,9 @@
 
 /*Classes*/
 
+.bg0{
+    background-color: rgba(255, 255, 255, 0);
+}
 .bg1{
     background-color: #545CF5;
 }
@@ -19,8 +22,18 @@
     background-color: #E5E7FF;
     border: solid 2px #545CF5;
 }
+.bg5{
+    background-color: rgb(39, 39, 39);
+}
+.bg6{
+    background-color: rgb(0, 175, 0);
+}
+
 .tx1{
     color:#545CF5;
+}
+.tx2{
+    color:#00B3FF;
 }
 
 .ho1{

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react" 
 import axios from "axios"
 
-import Header from "./Header"
+import Header from "../Header"
 
 function Locais (){
     const url = "http://localhost:7002"
