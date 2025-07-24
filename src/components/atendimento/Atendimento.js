@@ -1,8 +1,9 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import Header from "../Header"
+import Erro from "../Erro"
 
 function Atendimento (){
 
@@ -11,6 +12,8 @@ function Atendimento (){
     const { id } = useParams();
     const [ fila, setFila ] = useState([]);
     const [ user, setUser ] = useState(undefined)
+    const [ erros, setErros ] = useState([])
+    const navigate = useNavigate();
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")));
@@ -30,8 +33,14 @@ function Atendimento (){
                     //console.log(resp.data.data);
                     if (resp.data.status)
                         setFila(resp.data.data);
+                    else{
+                        setErros(resp.data.msg);
+                        if (resp.data.msg[0] === "Usuário Inválido")
+                            setTimeout(() => {navigate("/login")}, 3000);
+                    }
                 }).catch((error) => {
-                    console.log(error);
+                    //console.log(error);
+                    setErros(["Erro ao listar senhas"]);
                 })    
             } dados();
 
@@ -39,7 +48,7 @@ function Atendimento (){
 
             return () => clearInterval(interval);    
         }
-    }, [id, user])
+    }, [id, user, navigate])
 
     //
 
@@ -54,14 +63,20 @@ function Atendimento (){
                 user:user.tipo
             }
         }).then((resp) => {
-            console.log(resp.data);
+            //console.log(resp.data);
             if (resp.data.status || resp.data.msg[0] === "Chamada Existente"){
                 setChamar("d-block")
                 setSenha(resp.data.data.senhaChamada);
-                console.log(resp.data.data.senhaChamada)
+                //console.log(resp.data.data.senhaChamada)
+            }
+            else{
+                setErros(resp.data.msg);
+                if (resp.data.msg[0] === "Usuário Inválido")
+                    setTimeout(() => {navigate("/login")}, 3000);
             }
         }).catch((error) => {
-            console.log(error)
+            //console.log(error)
+            setErros(["Erro ao chamar senha"]);
         })
     }
 
@@ -75,17 +90,24 @@ function Atendimento (){
                 user:user.tipo
             }
         }).then((resp) => {
-            console.log(resp.data);
+            //console.log(resp.data);
             if (resp.data.status)
                 setChamar("d-none")
+            else{
+                setErros(resp.data.msg);
+                if (resp.data.msg[0] === "Usuário Inválido")
+                    setTimeout(() => {navigate("/login")}, 3000);
+            }
         }).catch((error) => {
-            console.log(error)
+            //console.log(error)
+            setErros(["Erro ao iniciar atendimento"])
         })
     }
 
     return (
         <>
             <Header back="/login"/>
+            <Erro erro={erros}/>
             <div className="container">
                 <div className="row">
                     <div className="col-12 bg4 border border-none p-5 mt-5 tx1 rounded-5">

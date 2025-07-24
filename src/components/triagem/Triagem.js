@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import Header from "../Header"
+import Erro from "../Erro"
 
 function Triagem (){
 
@@ -11,6 +12,8 @@ function Triagem (){
     const { id } = useParams();
     const [ locais, setLocais ] = useState([]);
     const [ user, setUser ] = useState(undefined)
+    const [ erros, setErros ] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")));
@@ -26,11 +29,15 @@ function Triagem (){
                     }
                     
                 }).then((resp) => {
-                    console.log(resp.data);
-                    if (resp.data.data !== undefined)
+                    //console.log(resp.data);
+                    if (resp.data.status)
                         setLocais(resp.data.data);
+                    else{
+                        setErros(resp.data.msg);
+                    }
                 }).catch((error) => {
-                    console.log(error);
+                    //console.log(error);
+                    setErros(["Erro ao listar locais"])
                 })    
             } dados();
 
@@ -51,15 +58,23 @@ function Triagem (){
             "tipo":tipo
         },{
             headers:{
-                "token":user.token,
-                "login":user.name,
-                "tipo":user.tipo
+                token:user.token,
+                login:user.name,
+                user:user.tipo
             }
         }).then((resp) => {
-            console.log(resp)
-            imprimirSenha(resp.data.data.senha.senha, local, tipo, resp.data.data.senha.divison)
+            //console.log(resp)
+            if(resp.data.status)
+                imprimirSenha(resp.data.data.senha.senha, local, tipo, resp.data.data.senha.divison)
+            else{
+                setErros(resp.data.msg);
+                if(resp.data.msg[0] === "Usuário Inválido"){
+                    setTimeout(() => {navigate("/login")}, 3000);
+                }
+            }
         }).catch((error) => {
-            console.log(error)
+            //console.log(error)
+            setErros(["Erro ao gerar senha"])
         })
     }
 
@@ -102,9 +117,16 @@ function Triagem (){
                         user:user.tipo
                     }
                 }).then((resp) => {
-                    console.log(resp);
+                    //console.log(resp);
+                    if (!resp.data.status){
+                        setErros(resp.data.msg)
+                        if(resp.data.msg[0] === "Usuário Inválido"){
+                            setTimeout(() => {navigate("/login")}, 3000);
+                        }
+                    }
                 }).catch((error) => {
-                    console.log(error);
+                    //console.log(error);
+                    setErros(["Erro ao recarregar filas"]);
                 })
             })
         }
@@ -114,6 +136,7 @@ function Triagem (){
     return (
         <>
             <Header back="/login"></Header>
+            <Erro erro={erros}/>
             <div className="container mt-5">
                 <div className="row mb-5 pt-5">
                     {
@@ -130,7 +153,7 @@ function Triagem (){
                     }
                 </div>
             </div>
-            <div className="container pt-5">
+            <div className="container py-5">
                 <div className="row">
                     <div className="d-flex justify-content-center">
                         <button onClick={recarregarFila} className="d-inline bg0 border border-0 tx2 ho1">

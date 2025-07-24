@@ -84,6 +84,29 @@
 .up{
     text-transform: uppercase;
 }
+.scroll1{
+    overflow: hidden;
+}
+.scroll2{
+    overflow-y: scroll;
+}
+/* Largura da barra de rolagem */
+.scroll2::-webkit-scrollbar {
+  width: 10px;
+  display:none;
+}
+
+/* Fundo da barra de rolagem */
+.scroll2::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Estilo do "thumb" (a parte que você arrasta) */
+.scroll2::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+  border-radius: 10px;
+}
 
 /*Login*/
 
