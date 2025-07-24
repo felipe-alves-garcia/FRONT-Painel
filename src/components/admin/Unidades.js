@@ -5,7 +5,7 @@ import Header from "../Header.js"
 
 function Unidades (){
     const [unidades, setUnidades] = useState([]);
-    const url = "http://localhost:7002";
+    const url = "http://10.10.112.4:7002";
 
     function buscarUnidades (){
         function dados (){
@@ -17,7 +17,7 @@ function Unidades (){
             })     
         } dados();
 
-        const interval = setInterval(dados, 3000);
+        const interval = setInterval(dados, 10000);
 
         return () => clearInterval(interval);
            

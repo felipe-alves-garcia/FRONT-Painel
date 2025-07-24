@@ -8,9 +8,9 @@ function Login (){
     const navigate = useNavigate();
 
     const [unidades, setUnidades] = useState([]);
-    const url = "http://localhost:7002";
+    const url = "http://10.10.112.4:7002";
 
-    function buscarUnidades (){
+    useEffect(() => {
         function dados (){
             axios.get(`${url}/unidades`).then((resp) => {
                 setUnidades(resp.data.data);
@@ -21,27 +21,25 @@ function Login (){
         } dados();
             
 
-        const interval = setInterval(dados, 2000);
+        const interval = setInterval(dados, 7000);
 
         return () => clearInterval(interval)
-    }
-
-    useEffect(() => {
-        buscarUnidades();
     }, [])
 
     //
 
-    const [unidade, setUnidade] = useState("d-none");
-    const [name, setName] = useState("");
-    const [id, setId] = useState("");
-    const [login, setLogin] = useState("");
-    const [password, setPassword] = useState("");
+    const [ unidade, setUnidade ] = useState("d-none");
+    const [ name, setName ] = useState("");
+    const [ id, setId ] = useState("");
+    const [ login, setLogin ] = useState("");
+    const [ password, setPassword ] = useState("");
+    //const [ painel, setPainel ] = useState("d-block");
 
     function unidadeLogin (unidadeID, unidadeName){
         setUnidade("d-block");
         setName(unidadeName);
         setId(unidadeID);
+        //(unidadeID === "admin") ? setPainel("d-none") : setPainel("d-block")
     }
 
     function funLogin(e){
@@ -53,6 +51,10 @@ function Login (){
                     navigate("/admin/home")
                 if(resp.data.data.tipo === "triagem")
                     navigate("/triagem/unidade/"+id)
+                if(resp.data.data.tipo === "atendimento")
+                    navigate("/atendimento/unidade/"+id);
+                if(resp.data.data.tipo === "painel")
+                    navigate("/painel/unidade/"+id);
             }
         }).catch((error) => {
             console.log(error);
@@ -74,7 +76,7 @@ function Login (){
                         unidades.map((item, index) => {
                             return (
                                 <div className="d-flex justify-content-center my-3 mx-4 ho1" key={index}>
-                                    <button className="bg2 w-100" onClick={() => unidadeLogin(item._id, item.name)}>
+                                    <button className="bg2 tx1 w-100" onClick={() => unidadeLogin(item._id, item.name)}>
                                         {item.name}
                                     </button>    
                                 </div>

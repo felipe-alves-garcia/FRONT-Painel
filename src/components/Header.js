@@ -18,9 +18,9 @@ function Header (props){
         <header className="container-fluid bg1 py-3 ps-5">
             <div className="row">
                 <div className="d-flex justify-content-between align-items-center">
-                    <a href="/admin/home" className="ho1">
+                    <div>
                         <img className="ms-4" src={logo} alt="Prefeitura Municipal de Parobé"/>    
-                    </a>
+                    </div>
                     <a href="/link" className={`ho1 a text-danger fs-3 me-5 ${history}`}  onClick={(e) => { e.preventDefault(); window.history.back(); }}>
                         <i className="bi bi-box-arrow-left"></i>
                     </a>

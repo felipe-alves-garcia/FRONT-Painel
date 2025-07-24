@@ -9,7 +9,7 @@ function AddUser (){
     const { id } = useParams()
     const [ user, setUser ] = useState(undefined);
     const [ locais, setLocais ] = useState([])
-    const url = "http://localhost:7002"
+    const url = "http://10.10.112.4:7002"
 
     const [ login, setLogin ] = useState("");
     const [ password, setPassword ] = useState("");
@@ -117,6 +117,7 @@ function AddUser (){
                                     <select className="w-100" value={tipo} onChange={(e) => {setTipo(e.target.value)}}>
                                         <option value="triagem">triagem</option>
                                         <option value="atendimento">atendimento</option>
+                                        <option value="painel">painel</option>
                                     </select>
                                 </div>
                             </div>

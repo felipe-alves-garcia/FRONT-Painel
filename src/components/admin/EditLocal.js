@@ -6,7 +6,7 @@ import Header from "../Header"
 
 function EditLocal (){
 
-    const url = "http://localhost:7002";
+    const url = "http://10.10.112.4:7002";
     
     const { localName } = useParams();
     const { id } = useParams();

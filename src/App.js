@@ -15,6 +15,10 @@ import AddUser from './components/admin/AddUser';
 
 import Triagem from './components/triagem/Triagem';
 
+import Atendimento from './components/atendimento/Atendimento';
+
+import Painel from "./components/painel/Painel"
+
 function App() {
   return (
     <div className="app">
@@ -33,6 +37,10 @@ function App() {
           <Route path="/admin/unidade/user/add/:id" element={<AddUser/>}/>
 
           <Route path="/triagem/unidade/:id" element={<Triagem/>}/>
+
+          <Route path="/atendimento/unidade/:id" element={<Atendimento/>}/>
+
+          <Route path="/painel/unidade/:id" element={<Painel/>}/>
 
           <Route path="*" element={<Login/>}/>
         </Routes>

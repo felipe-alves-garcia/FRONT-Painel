@@ -6,7 +6,7 @@ import Header from "../Header"
 
 function Triagem (){
 
-    const url = "http://localhost:7002"
+    const url = "http://10.10.112.4:7002"
 
     const { id } = useParams();
     const [ locais, setLocais ] = useState([]);
@@ -121,7 +121,7 @@ function Triagem (){
 
                             return (
                                 <div className="d-flex justify-content-center col-4" key={index}>
-                                    <button onClick={(e) => {setLocal(item.name); setSenha("d-flex")}} className="a ho1 w-100 d-flex justify-content-center p-4 mb-5 rounded-pill bg4" key={index}>
+                                    <button onClick={(e) => {setLocal(item.name); setSenha("d-block")}} className="a ho1 w-100 d-flex justify-content-center p-4 mb-5 rounded-pill bg4" key={index}>
                                         <p className="tx1 fw-bold m-0 fs-5">{item.name}</p>
                                     </button>    
                                 </div>
@@ -140,8 +140,8 @@ function Triagem (){
                     </div>
                 </div>
             </div>
-            <div className={`position-absolute top-0 app container-fluid ${senha} align-items-center justify-content-center`}>
-                <div className="row w-100 d-flex- justify-content-center">
+            <div className={`position-absolute top-0 appTotal bg10 container-fluid ${senha}`}>
+                <div className="top1 row w-100 d-flex justify-content-center align-items-center">
                     <div className="col-6 bg5 rounded-5 p-5">
                         <p className="text-white fs-5">Selecione o tipo de senha:</p>
                         <div className="container-fluid pt-4">

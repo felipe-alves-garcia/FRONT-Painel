@@ -8,7 +8,7 @@ import Header from "../Header"
 function EditUnidade (){
     const navigate = useNavigate();
 
-    const url = "http://localhost:7002"
+    const url = "http://10.10.112.4:7002"
 
     const { unidade } = useParams();
     const { id } = useParams();

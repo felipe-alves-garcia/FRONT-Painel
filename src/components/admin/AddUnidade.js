@@ -10,7 +10,7 @@ function AddUnidade (){
 
     const [ user, setUser ] = useState({});
     const [ name, setName ] = useState("");
-    const url = "http://localhost:7002"
+    const url = "http://10.10.112.4:7002"
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")));
