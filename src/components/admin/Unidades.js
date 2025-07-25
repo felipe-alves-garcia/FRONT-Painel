@@ -2,18 +2,23 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 import Header from "../Header.js"
+import Erro from "../Erro.js"
 
 function Unidades (){
-    const [unidades, setUnidades] = useState([]);
+    const [ unidades, setUnidades ] = useState([]);
+    const [ erros, setErros ] = useState([])
     const url = "http://10.10.112.4:7002";
 
     function buscarUnidades (){
         function dados (){
             axios.get(`${url}/unidades`).then((resp) => {
-                setUnidades(resp.data.data);
-                console.log(resp);
+                if (resp.data.status)
+                    setUnidades(resp.data.data);
+                else{
+                    setErros(resp.data.msg);
+                }
             }).catch((error) => {
-                console.log(error);
+                setErros(["Erro ao se conectar com API"])
             })     
         } dados();
 
@@ -28,8 +33,9 @@ function Unidades (){
     }, [])
 
     return (
-        <>
+        <>      
             <Header back="/login"/>
+            <Erro erro={erros}/>
             <main>
                 <div className="container-fluid px-5 pb-5">
                     <div className="row">

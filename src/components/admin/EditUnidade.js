@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react" 
 import axios from "axios"
-import { useNavigate } from "react-router-dom";
 
 import Header from "../Header"
+import Erro from "../Erro"
 
 function EditUnidade (){
     const navigate = useNavigate();
@@ -13,8 +13,9 @@ function EditUnidade (){
     const { unidade } = useParams();
     const { id } = useParams();
 
-    const [ user, setUser ] = useState({});
+    const [ user, setUser ] = useState(undefined);
     const [ unidadeName, setUnidadeName ] = useState(undefined)
+    const [ erros, setErros ] = useState([]);
 
     useEffect(() => {
         setUnidadeName(unidade);
@@ -36,11 +37,16 @@ function EditUnidade (){
                 user:user.tipo
             }
         }).then((resp) => {
-            console.log(resp);
-            navigate("/admin/home");
+            if (resp.data.status)
+                navigate("/admin/home");
+            else{
+                setErros(resp.data.msg);
+                if(resp.data.msg[0] === "Usuário Inválido"){
+                    setTimeout(() => {navigate("/login")}, 3000);
+                }
+            }
         }).catch((error) => {
-            console.log(error);
-            navigate("/admin/home");
+            setErros(["Erro ao se conectar com a API"])
         })
     }
 
@@ -52,16 +58,23 @@ function EditUnidade (){
                 user:user.tipo
             }
         }).then((resp) => {
-            console.log(resp);
-            navigate("/admin/home");
+            if(resp.data.status)
+                navigate("/admin/home");
+            else{
+                setErros(resp.data.msg);
+                if(resp.data.msg[0] === "Usuário Inválido"){
+                    setTimeout(() => {navigate("/login")}, 3000);
+                }
+            }
         }).catch((error) => {
-            console.log(error);
+            setErros(["Erro ao se conectar com a API"])
         })
     }
 
     return(
         <>
             <Header back="link"/>
+            <Erro erro={erros}/>
             <div className="container mt-5">
                 <div className="row">
                     <div id="divUnidade" className="col-12 p-5 rounded-5">

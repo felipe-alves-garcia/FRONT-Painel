@@ -30,7 +30,6 @@ function Atendimento (){
                     }
                     
                 }).then((resp) => {
-                    //console.log(resp.data.data);
                     if (resp.data.status)
                         setFila(resp.data.data);
                     else{
@@ -39,7 +38,6 @@ function Atendimento (){
                             setTimeout(() => {navigate("/login")}, 3000);
                     }
                 }).catch((error) => {
-                    //console.log(error);
                     setErros(["Erro ao listar senhas"]);
                 })    
             } dados();
@@ -63,11 +61,9 @@ function Atendimento (){
                 user:user.tipo
             }
         }).then((resp) => {
-            //console.log(resp.data);
             if (resp.data.status || resp.data.msg[0] === "Chamada Existente"){
                 setChamar("d-block")
                 setSenha(resp.data.data.senhaChamada);
-                //console.log(resp.data.data.senhaChamada)
             }
             else{
                 setErros(resp.data.msg);
@@ -75,7 +71,6 @@ function Atendimento (){
                     setTimeout(() => {navigate("/login")}, 3000);
             }
         }).catch((error) => {
-            //console.log(error)
             setErros(["Erro ao chamar senha"]);
         })
     }
@@ -90,7 +85,6 @@ function Atendimento (){
                 user:user.tipo
             }
         }).then((resp) => {
-            //console.log(resp.data);
             if (resp.data.status)
                 setChamar("d-none")
             else{
@@ -99,7 +93,6 @@ function Atendimento (){
                     setTimeout(() => {navigate("/login")}, 3000);
             }
         }).catch((error) => {
-            //console.log(error)
             setErros(["Erro ao iniciar atendimento"])
         })
     }

@@ -3,14 +3,16 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 import Header from "../Header"
+import Erro from "../Erro"
 
 function AddUnidade (){
 
     const navigate = useNavigate()
 
-    const [ user, setUser ] = useState({});
+    const [ user, setUser ] = useState(undefined);
     const [ name, setName ] = useState("");
     const url = "http://10.10.112.4:7002"
+    const [ erros, setErros ] = useState([]);
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")));
@@ -18,7 +20,7 @@ function AddUnidade (){
     
     function funAdd (e){
         e.preventDefault();
-        if(name !== ""){
+        if(name !== "" && user !== undefined){
             axios.post(`${url}/unidade/add`, {
                 "name":name
             }, {
@@ -28,11 +30,16 @@ function AddUnidade (){
                     user:user.tipo
                 }
             }).then((resp) => {
-                console.log(resp.data);
                 if (resp.data.status)
                     navigate("/admin/home")
+                else{
+                    setErros(resp.data.msg);
+                    if(resp.data.msg[0] === "Usuário Inválido"){
+                        setTimeout(() => {navigate("/login")}, 3000);
+                    }
+                }
             }).catch((error) => {
-                console.log(error);
+                setErros(["Erro ao se conectar com a API"]);
             })    
         }
         
@@ -41,6 +48,7 @@ function AddUnidade (){
     return (
         <>
             <Header back="link"/>
+            <Erro erro={erros}/>
             <main>
                 <div className="container-fluid px-5 pb-5">
                     <div className="row">

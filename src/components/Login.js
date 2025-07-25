@@ -23,7 +23,6 @@ function Login (){
                 }
             }).catch((error) => {
                 setErros(["Erro ao listar unidades"])
-                //console.log(error)
             })    
         } dados();
             
@@ -67,7 +66,6 @@ function Login (){
                 setErros(resp.data.msg);
             }
         }).catch((error) => {
-            //console.log(error);
             setErros(["Erro ao se conectar com a API"]);
         })
     }

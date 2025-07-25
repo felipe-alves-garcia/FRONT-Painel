@@ -1,14 +1,17 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import Header from "../Header"
+import Erro from "../Erro"
 
 function AddLocal (){
 
     const { id } = useParams()
-    const [ user, setUser ] = useState({});
+    const [ user, setUser ] = useState(undefined);
     const [ name, setName ] = useState("");
+    const [ erros, setErros ] = useState([]);
+    const navigate = useNavigate();
     const url = "http://10.10.112.4:7002"
 
     useEffect(() => {
@@ -17,29 +20,36 @@ function AddLocal (){
     
     function funAdd (e){
         e.preventDefault();
-        if (name !== ""){
-            axios.post(`${url}/unidade/local/add/${id}`, {
-                "name":name
-            }, {
-                headers:{
-                    token:user.token,
-                    login:user.name,
-                    user:user.tipo
-                }
-            }).then((resp) => {
-                console.log(resp.data);
-                if (resp.data.status)
-                    window.history.back();
-            }).catch((error) => {
-                console.log(error);
-            })    
+        if (user !== undefined){
+            if (name !== ""){
+                axios.post(`${url}/unidade/local/add/${id}`, {
+                    "name":name
+                }, {
+                    headers:{
+                        token:user.token,
+                        login:user.name,
+                        user:user.tipo
+                    }
+                }).then((resp) => {
+                    if (resp.data.status)
+                        window.history.back();
+                    else{
+                        setErros(resp.data.msg);
+                        if(resp.data.msg[0] === "Usuário Inválido"){
+                            setTimeout(() => {navigate("/login")}, 3000);
+                        }
+                    }
+                }).catch((error) => {
+                    setErros(["Erro ao se conectar com a API"]);
+                })    
+            }    
         }
-        
     }
 
     return (
         <>
             <Header back="link"/>
+            <Erro erro={erros}/>
             <main>
                 <div className="container-fluid px-5 pb-5">
                     <div className="row">

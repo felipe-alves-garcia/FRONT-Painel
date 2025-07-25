@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import axios from "axios"
 
@@ -6,6 +6,8 @@ import logo from "../../assets/img/logo2.png"
 import som1 from "../../assets/som/som1.mp3"
 //import som2 from "../../assets/som/som2.mp3"
 //import som3 from "../../assets/som/som3.mp3"
+
+import Erro from "../Erro"
 
 import Midia from "./Midia"
 
@@ -22,6 +24,8 @@ function Painel (){
     const [ lastSenhas, setLastSenhas ] = useState([]); 
     const audio = new Audio(som1);
     const [ midia ] = useState("ciKV8i2DIv0?si=jXAzaSBM-SoFt6Rf")
+    const [ erros, setErros ] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")));
@@ -37,12 +41,16 @@ function Painel (){
                     }
                     
                 }).then( async (resp) => {
-                    //console.log(resp.data);
-                    if (resp.data.data !== undefined){
+                    if (resp.data.status){
                         funChamar(resp.data.data)
                     }
+                    else{
+                        setErros(resp.data.msg);
+                        if (resp.data.msg[0] === "Usuário Inválido")
+                            setTimeout(() => {navigate("/login")}, 3000);
+                    }
                 }).catch((error) => {
-                    console.log(error);
+                    setErros(["Erro ao listar senhas"]);
                 })    
             } dados();
 
@@ -56,9 +64,11 @@ function Painel (){
     //
 
     async function funChamar(filas){
+        let count = 0;
         for(let i=0; i<filas.length; i++){
             let chamado = false;
             let numSenhas = 0;
+            if (filas[i].fila.length > 0) count++;
             for(let s=0; s<filas[i].fila.length; s++){
                 if (filas[i].fila[s].chamado === true && filas[i].fila[s].atendido === false){
                     numSenhas++;
@@ -97,8 +107,9 @@ function Painel (){
                     }
                 }
             }
-        if (chamado) break;
+            if (chamado) break;
         }
+        if (count === 0) setLastSenhas([]);
     }
 
     //
@@ -131,12 +142,13 @@ function Painel (){
 
     return (
         <>
-            <div className="container-fluid app">
+            <Erro erro={erros}/>
+            <div className="container-fluid app bg1">
                 <div className="row">
-                    <div className="z1 col-3 app bg1 d-flex flex-column justify-content-between">
-                        <div className="w-100 px-3 pe-4 my-4">
+                    <div className="z2 col-3 app bg1 d-flex flex-column justify-content-between">
+                        <a href="/login" className="a ho1 w-100 px-3 pe-4 my-4">
                             <img className="w-100" src={logo} alt="Prefeitura Municipal de Parobé"/>    
-                        </div>
+                        </a>
                         <div className="bg4 mt-4 rounded-5">
                             <p className="tx1 fs-1 fw-bold text-center mt-2 mb-0 d-flex align-items-center justify-content-center">{senha.divison}{senha.senha} <span className={`ms-2 fs-4 up ${prioridade}`}>({senha.tipo})</span></p>
                             <p className="tx1 fs-2 text-center">{local}</p>
@@ -148,7 +160,7 @@ function Painel (){
                         </div>
                     </div>
                     <Midia link={`https://www.youtube.com/embed/${midia}`}/>
-                    <div className="z2 col-12 position-absolute p-5 bg1 bottom-0">
+                    <div className="z3 col-12 position-absolute p-5 bg1 bottom-0">
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-3">

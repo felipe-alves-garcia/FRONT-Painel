@@ -1,8 +1,9 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import Header from "../Header"
+import Erro from "../Erro"
 
 function AddUser (){
 
@@ -10,6 +11,8 @@ function AddUser (){
     const [ user, setUser ] = useState(undefined);
     const [ locais, setLocais ] = useState([])
     const url = "http://10.10.112.4:7002"
+    const [ erros, setErros ] = useState([]);
+    const navigate = useNavigate();
 
     const [ login, setLogin ] = useState("");
     const [ password, setPassword ] = useState("");
@@ -29,17 +32,23 @@ function AddUser (){
                     login:user.name
                 }
             }).then((resp) => {
-                console.log(resp.data.data);
-                setLocais(resp.data.data)
-                setLocal(resp.data.data[0].name)
+                if(resp.data.status){
+                    setLocais(resp.data.data)
+                    setLocal(resp.data.data[0].name)    
+                }
+                else{
+                    setErros(resp.data.msg);
+                    if(resp.data.msg[0] === "Usuário Inválido"){
+                        setTimeout(() => {navigate("/login")}, 3000);
+                    }
+                }
             }).catch((error) => {
-                console.log(error);
+                setErros(["Erro ao se conectar com a API"])
             });    
         }
-    }, [user, id])
+    }, [user, id, navigate])
     
     function funAdd (e){
-        console.log(local+"\n"+tipo)
         e.preventDefault();
         if (
             login !== "" &&
@@ -61,11 +70,16 @@ function AddUser (){
                     user:user.tipo
                 }
             }).then((resp) => {
-                console.log(resp.data);
                 if (resp.data.status)
                     window.history.back();
+                else{
+                    setErros(resp.data.msg);
+                    if(resp.data.msg[0] === "Usuário Inválido"){
+                        setTimeout(() => {navigate("/login")}, 3000);
+                    }
+                }
             }).catch((error) => {
-                console.log(error);
+                setErros(["Erro ao se coneectar com a API"])
             })    
         }
         
@@ -74,6 +88,7 @@ function AddUser (){
     return (
         <>
             <Header back="link"/>
+            <Erro erro={erros}/>
             <main>
                 <div className="container-fluid px-5 pb-5">
                     <div className="row">

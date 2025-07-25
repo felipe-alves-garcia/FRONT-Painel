@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react" 
 import axios from "axios"
 
 import Header from "../Header"
+import Erro from "../Erro"
 
 function Locais (){
     const url = "http://10.10.112.4:7002"
@@ -10,9 +11,11 @@ function Locais (){
     const { unidade } = useParams();
     const { id } = useParams();
 
-    const [ user, setUser ] = useState({});
+    const [ user, setUser ] = useState(undefined);
     const [ unidadeName, setUnidadeName ] = useState(undefined);
     const [ locais, setLocais ] = useState([]);
+    const [ erros, setErros ] =useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setUnidadeName(unidade);
@@ -20,31 +23,38 @@ function Locais (){
     }, [unidade]);
 
     useEffect(() => {
-        function dados (){
-            axios.get(`${url}/unidade/locais/${id}`, {
-                headers:{
-                    token:user.token,
-                    login:user.name,    
-                }
-                
-            }).then((resp) => {
-                console.log(resp.data);
-                if (resp.data.data !== undefined)
-                    setLocais(resp.data.data);
-            }).catch((error) => {
-                console.log(error);
-            })    
-        } dados();
+        if (user !== undefined){
+            function dados (){
+                axios.get(`${url}/unidade/locais/${id}`, {
+                    headers:{
+                        token:user.token,
+                        login:user.name,    
+                    }
+                    
+                }).then((resp) => {
+                    if (resp.data.data !== undefined)
+                        setLocais(resp.data.data);
+                    else{
+                        setErros(resp.data.msg);
+                        if(resp.data.msg[0] === "Usuário Inválido"){
+                            setTimeout(() => {navigate("/login")}, 3000);
+                        }
+                    }
+                }).catch((error) => {
+                    setErros(["Erro ao se conectar com a API"]);
+                })    
+            } dados();
 
-        const interval = setInterval(dados, 3000);
+            const interval = setInterval(dados, 3000);
 
-        return () => clearInterval(interval);
-        
-    }, [id, user])
+            return () => clearInterval(interval);
+        }
+    }, [id, user, navigate])
 
     return(
         <>
             <Header back="link"/>
+            <Erro erro={erros}/>
             <div className="container mt-5">
                 <div className="row mb-5">
                     <div id="divUnidade" className="col-12 p-5 mb-5 rounded-5">

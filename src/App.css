@@ -73,6 +73,9 @@
 .z2{
     z-index: 900;
 }
+.z3{
+    z-index: 850;
+}
 .appTotal{
     height:100%;
 }
@@ -124,7 +127,7 @@
 }
 #input > input{
     line-height: 4rem;
-    border:2px #00B3FF solid;
+    border:2px #4abcfd solid;
     border-radius: 100px;
     outline: none;
     font-size: 1rem;
@@ -133,7 +136,7 @@
 }
 #input > div{
     line-height:4rem;
-    border:2px #00B3FF solid;
+    border:2px #4abcfd solid;
     position:absolute;
     display: flex;
     justify-content: center;

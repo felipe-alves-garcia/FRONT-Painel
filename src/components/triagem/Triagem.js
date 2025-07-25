@@ -29,14 +29,12 @@ function Triagem (){
                     }
                     
                 }).then((resp) => {
-                    //console.log(resp.data);
                     if (resp.data.status)
                         setLocais(resp.data.data);
                     else{
                         setErros(resp.data.msg);
                     }
                 }).catch((error) => {
-                    //console.log(error);
                     setErros(["Erro ao listar locais"])
                 })    
             } dados();
@@ -63,7 +61,6 @@ function Triagem (){
                 user:user.tipo
             }
         }).then((resp) => {
-            //console.log(resp)
             if(resp.data.status)
                 imprimirSenha(resp.data.data.senha.senha, local, tipo, resp.data.data.senha.divison)
             else{
@@ -73,7 +70,6 @@ function Triagem (){
                 }
             }
         }).catch((error) => {
-            //console.log(error)
             setErros(["Erro ao gerar senha"])
         })
     }
@@ -117,7 +113,6 @@ function Triagem (){
                         user:user.tipo
                     }
                 }).then((resp) => {
-                    //console.log(resp);
                     if (!resp.data.status){
                         setErros(resp.data.msg)
                         if(resp.data.msg[0] === "Usuário Inválido"){
@@ -125,7 +120,6 @@ function Triagem (){
                         }
                     }
                 }).catch((error) => {
-                    //console.log(error);
                     setErros(["Erro ao recarregar filas"]);
                 })
             })

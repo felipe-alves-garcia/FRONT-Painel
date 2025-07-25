@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 import Header from "../Header"
+import Erro from "../Erro"
 
 function EditUser (){
 
@@ -13,6 +14,8 @@ function EditUser (){
     const [ user, setUser ] = useState(undefined);
     const [ userInfo, setUSerInfo ] = useState({});
     const [ locais, setLocais ] = useState([]);
+    const [ erros, setErros ] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")));
@@ -26,14 +29,21 @@ function EditUser (){
                     login:user.name
                 }
             }).then((resp) => {
-                setUSerInfo(resp.data.data.users[0]);
-                setTipo(resp.data.data.users[0].tipo);
-                setLogin(resp.data.data.users[0].login);
-                setLocal(resp.data.data.users[0].local);
-                setPassword(resp.data.data.users[0].password)
-                console.log(resp.data.data.users[0]);
+                if (resp.data.status){
+                    setUSerInfo(resp.data.data.users[0]);
+                    setTipo(resp.data.data.users[0].tipo);
+                    setLogin(resp.data.data.users[0].login);
+                    setLocal(resp.data.data.users[0].local);
+                    setPassword(resp.data.data.users[0].password)
+                }
+                else{
+                    setErros(resp.data.msg);
+                    if(resp.data.msg[0] === "Usuário Inválido"){
+                        setTimeout(() => {navigate("/login")}, 3000);
+                    }
+                }
             }).catch((error) => {
-                console.log(error);
+                setErros(["Erro ao buscar usuário"])
             });
 
             axios.get(`${url}/unidade/locais/${id}`, {
@@ -42,14 +52,20 @@ function EditUser (){
                     login:user.name
                 }
             }).then((resp) => {
-                console.log(resp.data.data);
-                setLocais(resp.data.data)
+                if (resp.data.status)
+                    setLocais(resp.data.data)
+                else{
+                    setErros(resp.data.msg);
+                    if(resp.data.msg[0] === "Usuário Inválido"){
+                        setTimeout(() => {navigate("/login")}, 3000);
+                    }
+                }
             }).catch((error) => {
-                console.log(error);
+                setErros(["Erro ao buscar locais"])
             });    
         }
         
-    }, [user, id, userName])
+    }, [user, id, userName, navigate])
 
     //
 
@@ -73,10 +89,15 @@ function EditUser (){
                 user:user.tipo
             }
         }).then((resp) => {
-            console.log(resp.data);
             if (resp.data.status) window.history.back();
+            else{
+                setErros(resp.data.msg);
+                if(resp.data.msg[0] === "Usuário Inválido"){
+                    setTimeout(() => {navigate("/login")}, 3000);
+                }
+            }
         }).catch((error) => {
-            console.log(error)
+            setErros(["Erro ao se conectar com a API"]);
         })
     }
 
@@ -88,19 +109,22 @@ function EditUser (){
                 user:user.tipo
             }
         }).then((resp) => {
-            console.log(resp.data);
             if (resp.data.status) window.history.back();
+            else{
+                setErros(resp.data.msg);
+                if(resp.data.msg[0] === "Usuário Inválido"){
+                    setTimeout(() => {navigate("/login")}, 3000);
+                }
+            }
         }).catch((error) => {
-            console.log(error);
+            setErros(["Erro ao se conectar com a API"]);
         })
     }
-
-
-
 
     return (
         <>
             <Header back="link"/>
+            <Erro erro={erros}/>
             <div className="container mt-5">
                 <div className="row">
                     <div id="divUnidade" className="col-12 p-5 rounded-5">

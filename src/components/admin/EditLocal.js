@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 import Header from "../Header"
+import Erro from "../Erro"
 
 function EditLocal (){
 
@@ -12,6 +13,8 @@ function EditLocal (){
     const { id } = useParams();
     const [ user, setUser ] = useState(undefined);
     const [ local, setLocal ] = useState({});
+    const navigate = useNavigate();
+    const [ erros, setErros ] = useState([]);
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")));
@@ -19,21 +22,28 @@ function EditLocal (){
 
     useEffect(() => {
         if (user !== undefined){
-            axios.get(`${url}/unidade/Local/${id}/${localName}`, {
+            axios.get(`${url}/unidade/local/${id}/${localName}`, {
                 headers:{
                     token:user.token,
                     login:user.name
                 }
             }).then((resp) => {
-                setName(resp.data.data.locais[0].name);
-                setLocal(resp.data.data.locais[0]);
-                console.log(resp.data.data.users[0]);
+                if(resp.data.status){
+                    setName(resp.data.data.locais[0].name);
+                    setLocal(resp.data.data.locais[0]);
+                }
+                else{
+                    setErros(resp.data.msg);
+                    if(resp.data.msg[0] === "Usuário Inválido"){
+                        setTimeout(() => {navigate("/login")}, 3000);
+                    }
+                }
             }).catch((error) => {
-                console.log(error);
+                setErros(["Erro ao se conectar com a API"]);
             });
         }
         
-    }, [user, id, localName])
+    }, [user, id, localName, navigate])
 
     //
 
@@ -51,10 +61,15 @@ function EditLocal (){
                 user:user.tipo
             }
         }).then((resp) => {
-            console.log(resp.data);
             if (resp.data.status) window.history.back();
+            else{
+                setErros(resp.data.msg);
+                if(resp.data.msg[0] === "Usuário Inválido"){
+                    setTimeout(() => {navigate("/login")}, 3000);
+                }
+            }
         }).catch((error) => {
-            console.log(error)
+            setErros(["Erro ao se conectar com a API"])
         })
     }
 
@@ -66,17 +81,25 @@ function EditLocal (){
                 user:user.tipo
             }
         }).then((resp) => {
-            console.log(resp.data);
-            alert("⚠️ Atenção! Os usuários que pertenciam a esse local, ficaram sem local de trabalho!");
-            if (resp.data.status) window.history.back();
+            if (resp.data.status){
+                alert("⚠️ Atenção! Os usuários que pertenciam a esse local, ficaram sem local de trabalho!");
+                window.history.back();
+            }
+            else{
+                setErros(resp.data.msg);
+                if(resp.data.msg[0] === "Usuário Inválido"){
+                    setTimeout(() => {navigate("/login")}, 3000);
+                }
+            }
         }).catch((error) => {
-            console.log(error);
+            setErros(["Erro ao se conectar com a API"])
         })
     }
 
     return (
         <>
             <Header back="link"/>
+            <Erro erro={erros}/>
             <div className="container mt-5">
                 <div className="row">
                     <div id="divUnidade" className="col-12 p-5 rounded-5">
