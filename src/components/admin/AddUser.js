@@ -10,7 +10,7 @@ function AddUser (){
     const { id } = useParams()
     const [ user, setUser ] = useState(undefined);
     const [ locais, setLocais ] = useState([])
-    const url = "http://10.10.112.120:7002"
+    const url = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}`;
     const [ erros, setErros ] = useState([]);
     const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ function AddUser (){
                 setErros(["Erro ao se conectar com a API"])
             });    
         }
-    }, [user, id, navigate])
+    }, [user, id, navigate, url])
     
     function funAdd (e){
         e.preventDefault();

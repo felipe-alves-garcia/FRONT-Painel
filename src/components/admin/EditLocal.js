@@ -7,7 +7,7 @@ import Erro from "../Erro"
 
 function EditLocal (){
 
-    const url = "http://10.10.112.120:7002";
+    const url = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}`;
     
     const { localName } = useParams();
     const { id } = useParams();
@@ -43,7 +43,7 @@ function EditLocal (){
             });
         }
         
-    }, [user, id, localName, navigate])
+    }, [user, id, localName, navigate, url])
 
     //
 

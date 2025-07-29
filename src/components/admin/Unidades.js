@@ -7,30 +7,28 @@ import Erro from "../Erro.js"
 function Unidades (){
     const [ unidades, setUnidades ] = useState([]);
     const [ erros, setErros ] = useState([])
-    const url = "http://10.10.112.120:7002";
-
-    function buscarUnidades (){
-        function dados (){
-            axios.get(`${url}/unidades`).then((resp) => {
-                if (resp.data.status)
-                    setUnidades(resp.data.data);
-                else{
-                    setErros(resp.data.msg);
-                }
-            }).catch((error) => {
-                setErros(["Erro ao se conectar com API"])
-            })     
-        } dados();
-
-        const interval = setInterval(dados, 10000);
-
-        return () => clearInterval(interval);
-           
-    }
+    const url = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}`;
 
     useEffect(() => {
-        buscarUnidades();
-    }, [])
+        function buscarUnidades (){
+            function dados (){
+                axios.get(`${url}/unidades`).then((resp) => {
+                    if (resp.data.status)
+                        setUnidades(resp.data.data);
+                    else{
+                        setErros(resp.data.msg);
+                    }
+                }).catch((error) => {
+                    setErros(["Erro ao se conectar com API"])
+                })     
+            } dados();
+
+            const interval = setInterval(dados, 10000);
+
+            return () => clearInterval(interval);
+            
+        } buscarUnidades()
+    }, [url])
 
     return (
         <>      

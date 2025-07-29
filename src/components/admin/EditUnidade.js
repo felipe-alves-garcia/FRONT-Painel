@@ -8,7 +8,7 @@ import Erro from "../Erro"
 function EditUnidade (){
     const navigate = useNavigate();
 
-    const url = "http://10.10.112.120:7002"
+    const url = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}`;
 
     const { unidade } = useParams();
     const { id } = useParams();

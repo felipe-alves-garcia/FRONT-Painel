@@ -14,7 +14,7 @@ import Midia from "./Midia"
 
 function Painel (){
 
-    const url = "http://10.10.112.120:7002"
+    const url = `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}`;
 
     const { id } = useParams();
     const [ user, setUser ] = useState(undefined);
