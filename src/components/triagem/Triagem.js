@@ -7,7 +7,7 @@ import Erro from "../Erro"
 
 function Triagem (){
 
-    const url = "http://10.10.112.4:7002"
+    const url = "http://10.10.112.120:7002"
 
     const { id } = useParams();
     const [ locais, setLocais ] = useState([]);
@@ -137,7 +137,7 @@ function Triagem (){
                         locais.map((item, index) => {
 
                             return (
-                                <div className="d-flex justify-content-center col-4" key={index}>
+                                <div className="d-flex justify-content-center col-md-6 col-lg-4" key={index}>
                                     <button onClick={(e) => {setLocal(item.name); setSenha("d-block")}} className="a ho1 w-100 d-flex justify-content-center p-4 mb-5 rounded-pill bg4" key={index}>
                                         <p className="tx1 fw-bold m-0 fs-5">{item.name}</p>
                                     </button>    

@@ -7,7 +7,7 @@ import Erro from "../Erro.js"
 function Unidades (){
     const [ unidades, setUnidades ] = useState([]);
     const [ erros, setErros ] = useState([])
-    const url = "http://10.10.112.4:7002";
+    const url = "http://10.10.112.120:7002";
 
     function buscarUnidades (){
         function dados (){
@@ -37,7 +37,7 @@ function Unidades (){
             <Header back="/login"/>
             <Erro erro={erros}/>
             <main>
-                <div className="container-fluid px-5 pb-5">
+                <div className="container-fluid px-sm-5 pb-5">
                     <div className="row">
                         <div className="col-12 mt-5">
                             <h1 className="fw-bold fs-2 mt-4 mb-5">UNIDADES</h1>
@@ -46,7 +46,7 @@ function Unidades (){
                             unidades.map((item, index) => {
                                 
                                 return (
-                                    <div className="col-4 px-3 py-3" key={index}>
+                                    <div className="col-md-6 col-xl-4 px-3 py-3" key={index}>
                                         <div className="bg1 px-4 py-5 rounded-5">
                                             <h2 className="mx-3 fs-3 text-white">{item.name}</h2>
                                             <hr className="mb-4 border border-white mx-3"/>
@@ -85,7 +85,7 @@ function Unidades (){
                                 )
                             })
                         }
-                        <div className="col-4 d-flex justify-content-center align-items-center">
+                        <div className="col-md-6 col-xl-4 d-flex justify-content-center align-items-center">
                             <a href="/admin/unidade/add" className="ho1 bg1 px-4 p-3 m-0 rounded-pill">
                                 <i className="p-0 bi bi-plus-circle fs-1 text-white"></i>    
                             </a>

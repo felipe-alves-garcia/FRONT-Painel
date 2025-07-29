@@ -10,7 +10,7 @@ function AddUser (){
     const { id } = useParams()
     const [ user, setUser ] = useState(undefined);
     const [ locais, setLocais ] = useState([])
-    const url = "http://10.10.112.4:7002"
+    const url = "http://10.10.112.120:7002"
     const [ erros, setErros ] = useState([]);
     const navigate = useNavigate();
 
@@ -90,7 +90,7 @@ function AddUser (){
             <Header back="link"/>
             <Erro erro={erros}/>
             <main>
-                <div className="container-fluid px-5 pb-5">
+                <div className="container-fluid px-3 px-sm-5 pb-5">
                     <div className="row">
                         <div className="col-12 mt-5">
                             <h1 className="fw-bold fs-2 mt-4 mb-5">ADICIONAR USUÁRIO</h1>
@@ -155,7 +155,7 @@ function AddUser (){
                                 </div>
                             </div>
                             <div className="d-flex justify-content-center my-5 align-items-center">
-                                <button type="submit" className="mx-5 ho1 fs-5 mt-5 p-3 px-5 bg1 text-white fw-bold rounded-pill border border-0">
+                                <button type="submit" className="mx-sm-5 ho1 fs-5 mt-5 p-3 px-5 bg1 text-white fw-bold rounded-pill border border-0">
                                     Adicionar
                                     <i className="ms-3 bi bi-plus-circle-fill"></i>
                                 </button>

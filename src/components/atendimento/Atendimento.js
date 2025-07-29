@@ -7,7 +7,7 @@ import Erro from "../Erro"
 
 function Atendimento (){
 
-    const url = "http://10.10.112.4:7002"
+    const url = "http://10.10.112.120:7002"
     
     const { id } = useParams();
     const [ fila, setFila ] = useState([]);
@@ -102,7 +102,7 @@ function Atendimento (){
             <Header back="/login"/>
             <Erro erro={erros}/>
             <div className="container">
-                <div className="row">
+                <div className="row px-2 px-md-0">
                     <div className="col-12 bg4 border border-none p-5 mt-5 tx1 rounded-5">
                         <h1 className="fw-bold fs-2 mb-4">Senhas</h1>
                         {
@@ -113,12 +113,12 @@ function Atendimento (){
                                     tipo = "bg2"
 
                                 return(
-                                    <div className="px-4 col-12" key={i}>
+                                    <div className="px-md-4 col-12" key={i}>
                                         <div className="container-fluid">
                                             <div className="row pb-3">
                                                 <hr className="col-12"/>
-                                                <p className="px-4 py-2 m-0 fw-bold col-10">{senha.divison}{senha.senha}</p>
-                                                <div className="col-2">
+                                                <p className="px-4 py-2 m-0 fw-bold col-3 col-sm-6 col-md-9 col-lg-10">{senha.divison}{senha.senha}</p>
+                                                <div className="col-9 col-sm-6 col-md-3 col-lg-2">
                                                     <div className={`p-2 ${tipo} text-white text-center rounded-1`}><p className="m-0">{senha.tipo}</p></div>
                                                 </div>
                                             </div>
@@ -127,7 +127,7 @@ function Atendimento (){
                                 ) 
                             })
                         }
-                        <hr className="mx-4 mt-0"/>
+                        <hr className="mx-md-4 mt-0"/>
                     </div>
                     <div className="col-12 mb-5 pb-5">
                         <div className="d-flex justify-content-center mt-5">

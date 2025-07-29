@@ -15,16 +15,16 @@ function Header (props){
     }, [props.back])
 
     return (
-        <header className="container-fluid bg1 py-3 ps-5">
+        <header className="container-fluid bg1 py-3 px-3 ps-sm-5">
             <div className="row">
                 <div className="d-flex justify-content-between align-items-center">
-                    <div>
-                        <img className="ms-4" src={logo} alt="Prefeitura Municipal de Parobé"/>    
+                    <div className="col-7 col-md-4 col-lg-3 col-xl-2">
+                        <img className="ms-md-4 w-100" src={logo} alt="Prefeitura Municipal de Parobé"/>    
                     </div>
-                    <a href="/link" className={`ho1 a text-danger fs-3 me-5 ${history}`}  onClick={(e) => { e.preventDefault(); window.history.back(); }}>
+                    <a href="/link" className={`ho1 a text-danger fs-3 me-sm-5 ${history}`}  onClick={(e) => { e.preventDefault(); window.history.back(); }}>
                         <i className="bi bi-box-arrow-left"></i>
                     </a>
-                    <a href={back} className={`ho1 a text-danger fs-3 me-5 ${login}`}>
+                    <a href={back} className={`ho1 a text-danger fs-3 me-sm-5 ${login}`}>
                         <i className="bi bi-box-arrow-left"></i>
                     </a>
                 </div>

@@ -7,7 +7,7 @@ import Erro from "../Erro"
 
 function EditLocal (){
 
-    const url = "http://10.10.112.4:7002";
+    const url = "http://10.10.112.120:7002";
     
     const { localName } = useParams();
     const { id } = useParams();
@@ -101,7 +101,7 @@ function EditLocal (){
             <Header back="link"/>
             <Erro erro={erros}/>
             <div className="container mt-5">
-                <div className="row">
+                <div className="row px-2 px-sm-2">
                     <div id="divUnidade" className="col-12 p-5 rounded-5">
                         <h1 className="text-white fs-3 mb-5 pb-5">{local.name}</h1>
                     </div>
@@ -115,12 +115,12 @@ function EditLocal (){
                                 <input onChange={(e) => {setName(e.target.value)}} className="w-100" type="text" name="login" placeholder="Digite..." value={name}/>
                             </div>
                         </div>
-                        <div className="d-flex justify-content-center my-5 align-items-center">
-                            <button type="submit" className="mx-5 ho1 fs-5 mt-5 p-3 px-5 bg1 text-white fw-bold rounded-pill border border-0">
+                        <div className="d-flex flex-md-row flex-column justify-content-center my-5 align-items-center">
+                            <button type="submit" className="mx-sm-5 ho1 fs-5 mt-5 p-3 px-5 bg1 text-white fw-bold rounded-pill border border-0">
                                 Atualizar
                                 <i className="ms-3 bi bi-arrow-up-circle-fill"></i>
                             </button>
-                            <button type="button" onClick={() => {funDel()}} className="mx-5 ho1 fs-5 mt-5 p-3 px-5 bg3 text-white fw-bold rounded-pill border border-0">
+                            <button type="button" onClick={() => {funDel()}} className="mx-sm-5 ho1 fs-5 mt-4 mt-md-5 p-3 px-5 bg3 text-white fw-bold rounded-pill border border-0">
                                 Deletar
                                 <i className="ms-3 bi bi-trash-fill"></i>
                             </button>

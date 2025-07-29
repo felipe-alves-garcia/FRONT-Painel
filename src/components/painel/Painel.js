@@ -14,7 +14,7 @@ import Midia from "./Midia"
 
 function Painel (){
 
-    const url = "http://10.10.112.4:7002"
+    const url = "http://10.10.112.120:7002"
 
     const { id } = useParams();
     const [ user, setUser ] = useState(undefined);
@@ -143,9 +143,12 @@ function Painel (){
     return (
         <>
             <Erro erro={erros}/>
+            <div className="d-md-none bg3 position-absolute z1 w-100 text-white p-4 rounded-3 mb-1">
+                RESOLUÇÃO NÃO SUPORTADA
+            </div>
             <div className="container-fluid app bg1">
-                <div className="row">
-                    <div className="z2 col-3 app bg1 d-flex flex-column justify-content-between">
+                <div className="row d-none d-md-flex">
+                    <div className="z2 col-md-4 col-lg-3 app bg1 d-flex flex-column justify-content-between">
                         <a href="/login" className="a ho1 w-100 px-3 pe-4 my-4">
                             <img className="w-100" src={logo} alt="Prefeitura Municipal de Parobé"/>    
                         </a>
@@ -163,15 +166,15 @@ function Painel (){
                     <div className="z3 col-12 position-absolute p-5 bg1 bottom-0">
                         <div className="container-fluid">
                             <div className="row">
-                                <div className="col-3">
+                                <div className="col-md-4 col-lg-3">
 
                                 </div>
-                                <div className="col-9 d-flex justify-content-around">
+                                <div className="col-md-8 col-lg-9 d-flex justify-content-around">
                                     {
                                         lastSenhas.map((item, index) => {
                                             if(index < 5){
                                                 return (
-                                                    <p key={index} className="text-white m-0 d-inline fw-bold">&nbsp;{item.divison}{item.senha} - {item.tipo}</p>
+                                                    <p key={index} className="text-center text-white m-0 d-inline fw-bold">&nbsp;{item.divison}{item.senha} - {item.tipo}</p>
                                                 )    
                                             }
                                             return <></>

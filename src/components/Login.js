@@ -10,7 +10,7 @@ function Login (){
     const navigate = useNavigate();
 
     const [unidades, setUnidades] = useState([]);
-    const url = "http://10.10.112.4:7002";
+    const url = "http://10.10.112.120:7002";
     const [ erros, setErros ] = useState([]);
 
     useEffect(() => {
@@ -76,7 +76,7 @@ function Login (){
             <Erro erro={erros}/>
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-3 bg1 scroll1 top1">
+                    <div className="col-12 col-lg-4 col col-xxl-3 bg1 scroll1 top1 d-none d-lg-block">
                         <div id="loginUnidades" className="scroll2 pb-5">
                             <div className="d-flex justify-content-center my-3 mt-5 mx-4 ho1">
                                 <button className="bg2 w-100" onClick={() => unidadeLogin("admin", "Admin")}>
@@ -98,13 +98,35 @@ function Login (){
                             }    
                         </div>
                     </div>
-                    <div className="col-9">
+                    <div className="col-12 d-block d-lg-none bg1">
+                        <div id="loginUnidades" className="pb-5">
+                            <div className="d-flex justify-content-center my-3 mt-5 mx-4 ho1">
+                                <button className="bg2 w-100" onClick={() => unidadeLogin("admin", "Admin")}>
+                                    Admin
+                                </button>    
+                            </div>
+                            
+                            {
+                                unidades.map((item, index) => {
+                                    return (
+                                        <div className="d-flex justify-content-center my-3 mx-4 ho1" key={index}>
+                                            <button className="bg2 tx1 w-100" onClick={() => unidadeLogin(item._id, item.name)}>
+                                                {item.name}
+                                            </button>    
+                                        </div>
+                                        
+                                    )
+                                })
+                            }    
+                        </div>
+                    </div>
+                    <div className="col-12 col-lg-8 col-xxl-9 bg11">
                         <div className="d-flex justify-content-end p-4">
                             <img src={logo} alt="Prefeitura Municipal de Parobé" id="loginImg"/>
                         </div>
-                        <div className={`${unidade} mx-5`}>
-                            <h1 className="fw-bold fs-2 mx-5 mb-5">LOGIN - {name}</h1>
-                            <form className="mx-5" onSubmit={(e) => {funLogin(e)}}>
+                        <div className={`${unidade} mx-0 mx-sm-5`}>
+                            <h1 className="fw-bold fs-2 mx-0 mx-sm-5 mb-5">LOGIN - {name}</h1>
+                            <form className="mx-0 mx-sm-5" onSubmit={(e) => {funLogin(e)}}>
                                 <div className="mt-5">
                                     <label htmlFor="login" className="fs-5 ms-4 mb-1">Usuário</label>
                                     <div className="d-flex position-relative" id="input">

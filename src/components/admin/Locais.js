@@ -6,7 +6,7 @@ import Header from "../Header"
 import Erro from "../Erro"
 
 function Locais (){
-    const url = "http://10.10.112.4:7002"
+    const url = "http://10.10.112.120:7002"
 
     const { unidade } = useParams();
     const { id } = useParams();
@@ -56,7 +56,7 @@ function Locais (){
             <Header back="link"/>
             <Erro erro={erros}/>
             <div className="container mt-5">
-                <div className="row mb-5">
+                <div className="row mb-5 px-sm-0 px-2">
                     <div id="divUnidade" className="col-12 p-5 mb-5 rounded-5">
                         <h1 className="text-white fs-3 mb-5 pb-5">{unidadeName} - Locais</h1>
                     </div>
