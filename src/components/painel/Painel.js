@@ -23,7 +23,7 @@ function Painel (){
     const [ prioridade, setPrioridade ] = useState("text-success-emphasis d-none")
     const [ lastSenhas, setLastSenhas ] = useState([]); 
     const audio = new Audio(som1);
-    const [ midia ] = useState("ciKV8i2DIv0?si=jXAzaSBM-SoFt6Rf")
+    const [ midia, setMidia ] = useState("jhf")
     const [ erros, setErros ] = useState([]);
     const navigate = useNavigate();
 
@@ -140,6 +140,17 @@ function Painel (){
         });
     };
 
+    //
+
+    const [ link, setLink ] = useState("");
+    const [ statusLink, setStatusLink ] = useState("d-block")
+
+    function funLink(e){
+        e.preventDefault()
+        setStatusLink("d-none")
+        setMidia(link.match(/\/([^/?]+)(\?|$)/)?.[1])
+    }
+
     return (
         <>
             <Erro erro={erros}/>
@@ -148,6 +159,11 @@ function Painel (){
             </div>
             <div className="container-fluid app bg1">
                 <div className="row d-none d-md-flex">
+                    <div className={`col-9 position-absolute p-3 end-0 ${statusLink}`}>
+                        <form onSubmit={(e) => {funLink(e)}}>
+                            <input className="rounded-1 w-100 bg0 text-white border border-secondary-subtle px-4" placeholder="Link do Vídeo" onChange={(e) => {setLink(e.target.value)}}/>    
+                        </form>
+                    </div>
                     <div className="z2 col-md-4 col-lg-3 app bg1 d-flex flex-column justify-content-between">
                         <a href="/login" className="a ho1 w-100 px-3 pe-4 my-4">
                             <img className="w-100" src={logo} alt="Prefeitura Municipal de Parobé"/>    
@@ -162,7 +178,7 @@ function Painel (){
                             <p className="fs-1 fw-bold my-0 text-white text-center">{formatarHora(dataHoraAtual)}</p>
                         </div>
                     </div>
-                    <Midia link={`https://www.youtube.com/embed/${midia}`}/>
+                    <Midia link={`https://www.youtube.com/embed/${midia}?autoplay=1&mute=1`}/>
                     <div className="z3 col-12 position-absolute p-5 bg1 bottom-0">
                         <div className="container-fluid">
                             <div className="row">
