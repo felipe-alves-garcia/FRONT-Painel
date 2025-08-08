@@ -74,6 +74,9 @@ function Painel (){
                     numSenhas++;
                     if(numSenhas)
                     setLocal(filas[i].name)
+                    if (filas[i].fila[s].sublocal === "none"){
+                        filas[i].fila[s].sublocal = "";
+                    }
                     setSenha(filas[i].fila[s]);
                     (filas[i].fila[s].tipo === "normal") ? setPrioridade("text-success-emphasis d-none") : setPrioridade("text-danger")
                     try{
@@ -170,7 +173,7 @@ function Painel (){
                         </a>
                         <div className="bg4 mt-4 rounded-5">
                             <p className="tx1 fs-1 fw-bold text-center mt-2 mb-0 d-flex align-items-center justify-content-center">{senha.divison}{senha.senha} <span className={`ms-2 fs-4 up ${prioridade}`}>({senha.tipo})</span></p>
-                            <p className="tx1 fs-2 text-center">{local}</p>
+                            <p className="tx1 fs-2 text-center">{local}{senha.sublocal}</p>
                         </div>
                         <div className="mb-3 d-flex flex-column align-items-center">
                             <p className="fs-4 mb-2 text-white text-center">{formatarData(dataHoraAtual)}</p>

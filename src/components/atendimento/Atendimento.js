@@ -54,7 +54,7 @@ function Atendimento (){
     const [ senha, setSenha ] = useState({});
 
     function funChamar (){
-        axios.put(`${url}/fila/senha/chamar/${id}/${user.local}`, {},{
+        axios.put(`${url}/fila/senha/chamar/${id}/${user.local}/${sublocal}`, {},{
             headers:{
                 token:user.token,
                 login:user.name,    
@@ -95,6 +95,23 @@ function Atendimento (){
         }).catch((error) => {
             setErros(["Erro ao iniciar atendimento"])
         })
+    }
+
+    //
+
+    const [ sublocalStatus, setSublocalStatus ] = useState("d-block");
+    const [ sublocal, setSublocal ] = useState("");
+    function funSublocal (e){
+        e.preventDefault();
+        if(sublocal !== ""){
+            setSublocal(` - ${sublocal}`);
+            setSublocalStatus("d-none");
+            localStorage.setItem("sublocal", sublocal);
+        } else{
+            setSublocal("none");
+            setSublocalStatus("d-none");
+            localStorage.setItem("sublocal", sublocal);
+        }
     }
 
     return (
@@ -155,6 +172,25 @@ function Atendimento (){
                                     <button onClick={() => {funAtender()}} className="ho1 bg9 py-5 fs-5 fw-bold w-100 rounded-1">Não Compareceu</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className={`position-absolute top-0 appTotal bg10 container-fluid ${sublocalStatus}`}>
+                <div className="top1 row w-100 d-flex justify-content-center align-items-center">
+                    <div className="col-6 bg1 rounded-5 p-5">
+                        <p className="text-white fs-5 fw-bold">Dê um nome ao seu computador ou sala:</p>
+                        <div className="container-fluid pt-4">
+                            <form onSubmit={(e) => {funSublocal(e)}} className="row">
+                                <input placeholder="ex:Guiche 01..." className="py-3 px-4 rounded-4 border bordeer-none" onChange={(e) => {setSublocal(e.target.value)}}/>
+                                <div className="d-flex justify-content-center">
+                                    <button type="submit" className="ho1 mt-5 p-3 px-5 bg2 text-white fw-bold rounded-pill border border-0">
+                                        Escolher
+                                        <i className="ps-3 bi bi-hand-index-thumb-fill"></i>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
