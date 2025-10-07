@@ -21,6 +21,7 @@ function Painel (){
     const [ senha, setSenha ] = useState({});
     const [ local, setLocal ] = useState("")
     const [ prioridade, setPrioridade ] = useState("text-success-emphasis d-none")
+    const [ prioridade2, setPrioridade2 ] = useState("text-success-emphasis")
     const [ lastSenhas, setLastSenhas ] = useState([]); 
     const audio = new Audio(som1);
     const [ midia, setMidia ] = useState("jhf")
@@ -78,7 +79,13 @@ function Painel (){
                         filas[i].fila[s].sublocal = "";
                     }
                     setSenha(filas[i].fila[s]);
-                    (filas[i].fila[s].tipo === "normal") ? setPrioridade("text-success-emphasis d-none") : setPrioridade("text-danger")
+                    if(filas[i].fila[s].tipo === "normal"){
+                        setPrioridade("text-success-emphasis d-none")
+                        setPrioridade2("")
+                    } else{
+                        setPrioridade("text-danger")
+                        setPrioridade2("text-danger")
+                    }
                     try{
                         await audio.play();
                     } catch (error){
@@ -172,7 +179,7 @@ function Painel (){
                             <img className="w-100" src={logo} alt="Prefeitura Municipal de Parobé"/>    
                         </a>
                         <div className="bg4 mt-4 rounded-5">
-                            <p className="tx1 fs-1 fw-bold text-center mt-2 mb-0 d-flex align-items-center justify-content-center">{senha.divison}{senha.senha} <span className={`ms-2 fs-4 up ${prioridade}`}>({senha.tipo})</span></p>
+                            <p className={`tx2 flex-column fw-bold text-center mt-2 mb-0 d-flex align-items-center justify-content-center ${prioridade2} d-flex`} style={{fontSize:100}}>{senha.divison}{senha.senha} <span className={`ms-2 mt-0 fs-4 up ${prioridade}`}>({senha.tipo})</span></p>
                             <p className="tx1 fs-2 text-center">{local}{senha.sublocal}</p>
                         </div>
                         <div className="mb-3 d-flex flex-column align-items-center">
