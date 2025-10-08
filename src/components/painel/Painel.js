@@ -23,6 +23,8 @@ function Painel (){
     const [ prioridade, setPrioridade ] = useState("text-success-emphasis d-none")
     const [ prioridade2, setPrioridade2 ] = useState("text-success-emphasis")
     const [ lastSenhas, setLastSenhas ] = useState([]); 
+    const [ resolusaoH, setResolusaoH ] = useState("d-block")
+    const [ resolusaoV, setResolusaoV ] = useState("d-none")
     const audio = new Audio(som1);
     const [ midia, setMidia ] = useState("jhf")
     const [ erros, setErros ] = useState([]);
@@ -30,6 +32,10 @@ function Painel (){
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem("user")));
+        if (window.innerWidth < window.innerHeight){
+            setResolusaoH("d-none")
+            setResolusaoV("d-block")
+        }
     }, []);
 
     useEffect(() => {
@@ -164,10 +170,7 @@ function Painel (){
     return (
         <>
             <Erro erro={erros}/>
-            <div className="d-md-none bg3 position-absolute z1 w-100 text-white p-4 rounded-3 mb-1">
-                RESOLUÇÃO NÃO SUPORTADA
-            </div>
-            <div className="container-fluid app bg1">
+            <div className={`container-fluid app bg1 ${resolusaoH}`}>
                 <div className="row d-none d-md-flex">
                     <div className={`col-9 position-absolute p-3 end-0 ${statusLink}`}>
                         <form onSubmit={(e) => {funLink(e)}}>
@@ -210,6 +213,48 @@ function Painel (){
                             </div>
                         </div>
                         
+                    </div>
+                </div>
+            </div>
+            <div className={`container-fluid app bg1 ${resolusaoV}`}>
+                <div className="row d-none d-md-flex">
+                    <div className="col-6 d-flex flex-column justify-content-between">
+                        <a href="/login" className="a ho1 w-100 px-3 pe-4 my-4">
+                            <img className="w-100" src={logo} alt="Prefeitura Municipal de Parobé"/>    
+                        </a>
+                    </div>
+                    <div className={`col-12 p-3 end-0 ${statusLink}`}>
+                        <form onSubmit={(e) => {funLink(e)}}>
+                            <input className="rounded-1 w-100 bg0 text-white border border-secondary-subtle px-4" placeholder="Link do Vídeo" onChange={(e) => {setLink(e.target.value)}}/>    
+                        </form>
+                    </div>
+                    <Midia link={`https://www.youtube.com/embed/${midia}?autoplay=1&mute=1`}/>
+                    <div className="col-12 d-flex flex-column justify-content-between">
+                        <div className="bg4 mt-4 rounded-5">
+                            <p className={`tx2 flex-column fw-bold text-center mt-2 mb-0 d-flex align-items-center justify-content-center ${prioridade2} d-flex`} style={{fontSize:130}}>{senha.divison}{senha.senha} <span className={`ms-2 mt-0 fs-4 up ${prioridade}`}>({senha.tipo})</span></p>
+                            <p className="tx1 txs1 text-center">{local}{senha.sublocal}</p>
+                        </div>
+                    </div>
+                    <div className="col-12 p-5">
+                        <hr className="m-0 border border-white w-100 mb-5"></hr>
+                        {
+                            lastSenhas.map((item, index) => {
+                                if(index < 5){
+                                    return (
+                                        <p key={index} className="txs2 text-white m-0 mb-1">&nbsp;{item.divison}{item.senha} - {item.tipo}</p>
+                                    )    
+                                }
+                                return <></>
+                            })
+                        }
+                        <hr className="m-0 border border-white w-100 mt-5"></hr>
+                    </div>
+                    <div className="col-12 d-flex flex-column justify-content-between position-absolute bottom-0">
+                        <div className="mb-5 d-flex flex-column align-items-center">
+                            <p className="fs-1 mb-3 text-white text-center">{formatarData(dataHoraAtual)}</p>
+                            <hr className="m-0 border border-white w-25"></hr>
+                            <p className="fs-1 fw-bold my-0 text-white text-center">{formatarHora(dataHoraAtual)}</p>
+                        </div>
                     </div>
                 </div>
             </div>
