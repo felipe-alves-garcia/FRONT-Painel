@@ -61,6 +61,8 @@ function Login (){
                     navigate("/atendimento/unidade/"+id);
                 if(resp.data.data.tipo === "painel")
                     navigate("/painel/unidade/"+id);
+                if(resp.data.data.tipo === "painel2")
+                    navigate("/painel2/unidade/"+id);
             }
             else{
                 setErros(resp.data.msg);

@@ -133,6 +133,7 @@ function AddUser (){
                                         <option value="triagem">triagem</option>
                                         <option value="atendimento">atendimento</option>
                                         <option value="painel">painel</option>
+                                        <option value="painel2">painel2</option>
                                     </select>
                                 </div>
                             </div>

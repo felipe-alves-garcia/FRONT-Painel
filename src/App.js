@@ -18,6 +18,7 @@ import Triagem from './components/triagem/Triagem';
 import Atendimento from './components/atendimento/Atendimento';
 
 import Painel from "./components/painel/Painel"
+import Painel2 from "./components/painel/Painel2"
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/atendimento/unidade/:id" element={<Atendimento/>}/>
 
           <Route path="/painel/unidade/:id" element={<Painel/>}/>
+          <Route path="/painel2/unidade/:id" element={<Painel2/>}/>
 
           <Route path="*" element={<Login/>}/>
         </Routes>

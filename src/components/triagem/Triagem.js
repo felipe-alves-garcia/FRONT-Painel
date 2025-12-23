@@ -83,17 +83,17 @@ function Triagem (){
             <head>
                 <title>Senha</title>
                 <style>
-                    body { font-family: monospace; font-size: 18px; text-align: center; margin-top: 50px; }
+                    body { font-family: monospace; font-size: 18px; text-align: center; margin-top: 5px; }
                     .senha { font-size: 48px; font-weight: bold; }
                     .local { font-size: 30px; font-weight: bold; }
-                    .tipo { margin-top: 10px; font-size: 20px; }
+                    .tipo { margin-top: 3px; font-size: 20px; }
                 </style>
             </head>
             <body onload="window.print(); setTimeout(() => window.close(), 100);">
-                <div class="senha">SENHA:${divison}${senha}</div>
+                <div class="senha">SENHA:<span style="font-size: 55px">${divison}${senha}</span></div>
                 <div class="local">${local}</div>
                 <div class="tipo">${tipo}</div>
-                <div style="margin-top:40px;">${new Date().toLocaleString()}</div>
+                <div style="margin-top:5px;">${new Date().toLocaleString()}</div>
             </body>
             </html>
         `);

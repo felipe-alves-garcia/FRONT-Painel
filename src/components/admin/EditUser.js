@@ -158,6 +158,8 @@ function EditUser (){
                                 <select className="w-100" value={tipo} onChange={(e) => {setTipo(e.target.value)}}>
                                     <option value="triagem">triagem</option>
                                     <option value="atendimento">atendimento</option>
+                                    <option value="painel">painel</option>
+                                    <option value="painel2">painel2</option>
                                 </select>
                             </div>
                         </div>
