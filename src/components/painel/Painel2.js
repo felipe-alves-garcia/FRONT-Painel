@@ -112,12 +112,11 @@ function Painel2 (){
                         <div className="d-flex flex-column px-4">
                             {
                                 lastSenhas.map((item, index) => {
-                                    if(index < 5){
+                                    if(index < 5 && item !== undefined){
                                         return (
                                             <p key={index} className="text-center m-0 mt-3 mb-1 d-inline fs-3 fw-bold bg4 rounded-5 py-2">&nbsp;{item.divison}{item.senha} - {item.tipo}</p>
                                         )    
                                     }
-                                    return <></>
                                 })
                             }
                         </div>
