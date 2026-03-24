@@ -29,6 +29,7 @@ function Triagem (){
                     }
                     
                 }).then((resp) => {
+                    console.log(resp.data.data)
                     if (resp.data.status)
                         setLocais(resp.data.data);
                     else{
@@ -131,29 +132,51 @@ function Triagem (){
         <>
             <Header back="/login"></Header>
             <Erro erro={erros}/>
-            <div className="container mt-5">
+            
+            <div className="container-fluid mt-5">
                 <div className="row mb-5 pt-5">
-                    {
-                        locais.map((item, index) => {
+                    <div className="col-xl-8">
+                        <div className="container">
+                            <div className="row">
+                                {
+                                    locais.map((item, index) => {
 
-                            return (
-                                <div className="d-flex justify-content-center col-md-6 col-lg-4" key={index}>
-                                    <button onClick={(e) => {setLocal(item.name); setSenha("d-block")}} className="a ho1 w-100 d-flex justify-content-center p-4 mb-5 rounded-pill bg4" key={index}>
-                                        <p className="tx1 fw-bold m-0 fs-5">{item.name}</p>
+                                        return (
+                                            <div className="d-flex justify-content-center col-md-6" key={index}>
+                                                <button onClick={(e) => {setLocal(item.name); setSenha("d-block")}} className="a ho1 w-100 d-flex justify-content-center p-4 mb-5 rounded-pill bg4" key={index}>
+                                                    <p className="tx1 fw-bold m-0 fs-5">{item.name}</p>
+                                                </button>    
+                                            </div>
+                                        )
+                                    })
+                                }
+                                <div className="d-flex justify-content-center py-5">
+                                    <button onClick={recarregarFila} className="d-inline bg0 border border-0 tx2 ho1">
+                                        <i className="bi bi-arrow-clockwise"></i>
+                                        <p className="m-0">Recarregar Senhas</p>
                                     </button>    
                                 </div>
-                            )
-                        })
-                    }
-                </div>
-            </div>
-            <div className="container py-5">
-                <div className="row">
-                    <div className="d-flex justify-content-center">
-                        <button onClick={recarregarFila} className="d-inline bg0 border border-0 tx2 ho1">
-                            <i className="bi bi-arrow-clockwise"></i>
-                            <p className="m-0">Recarregar Senhas</p>
-                        </button>    
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xl-4 border-start">
+                        {
+                            locais.map((item) => {
+                                return item.Registros.map((r, index) => {
+
+                                    return (
+                                        <div className="px-4 mb-3">
+                                            <p className="fw-bold fs-5 w-100">{item.name}</p> 
+                                            <div className="border border-3 py-2 px-4 px-sm-5 w-100 rounded-5 d-flex justify-content-between mt-2">
+                                                <p className="d-inline tx1 fw-bold m-0">{r.data}: </p>   
+                                                <p className="d-inline m-0">{r.numRegistros} Senhas</p>    
+                                            </div>
+                                            
+                                        </div>
+                                    )
+                                })
+                            })
+                        }
                     </div>
                 </div>
             </div>

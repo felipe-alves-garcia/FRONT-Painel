@@ -12,6 +12,7 @@ import EditLocal from "./components/admin/EditLocal"
 import AddUnidade from "./components/admin/AddUnidade"
 import AddLocal from './components/admin/AddLocal';
 import AddUser from './components/admin/AddUser';
+import Registros from "./components/admin/Registros"
 
 import Triagem from './components/triagem/Triagem';
 
@@ -36,6 +37,7 @@ function App() {
           <Route path="/admin/unidade/add" element={<AddUnidade/>}/>
           <Route path="/admin/unidade/local/add/:id" element={<AddLocal/>}/>
           <Route path="/admin/unidade/user/add/:id" element={<AddUser/>}/>
+          <Route path="/admin/unidade/registros/:id" element={<Registros/>}/>
 
           <Route path="/triagem/unidade/:id" element={<Triagem/>}/>
 

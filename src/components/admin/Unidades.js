@@ -57,6 +57,10 @@ function Unidades (){
                                                     <i className="bi bi-building-fill me-3"></i>
                                                     Locais
                                                 </a>
+                                                <a href={`/admin/unidade/registros/${item._id}`} className="mb-2 a ho1 text-white bg2 d-block fs-5 rounded-pill px-4 py-2">
+                                                    <i className="bi bi-file-earmark-text me-3"></i>
+                                                    Registros
+                                                </a>
                                                 <a href={`/admin/unidade/edit/${item.name}/${item._id}`} className="mb-2 a ho1 text-white bg2 d-block fs-5 rounded-pill px-4 py-2">
                                                     <i className="bi bi-pencil-square me-3"></i>
                                                     Editar Unidade
