@@ -128,13 +128,14 @@ function Atendimento (){
                                 let tipo = "bg3"
                                 if (senha.tipo === "normal")
                                     tipo = "bg2"
+                                console.log(senha)
 
                                 return(
                                     <div className="px-md-4 col-12" key={i}>
                                         <div className="container-fluid">
                                             <div className="row pb-3">
                                                 <hr className="col-12"/>
-                                                <p className="px-4 py-2 m-0 fw-bold col-3 col-sm-6 col-md-9 col-lg-10">{senha.divison}{senha.senha}</p>
+                                                <p className="px-4 py-2 m-0 fw-bold col-3 col-sm-6 col-md-9 col-lg-10">{senha.division}{senha.senha}</p>
                                                 <div className="col-9 col-sm-6 col-md-3 col-lg-2">
                                                     <div className={`p-2 ${tipo} text-white text-center rounded-1`}><p className="m-0">{senha.tipo}</p></div>
                                                 </div>
@@ -159,7 +160,7 @@ function Atendimento (){
             <div className={`position-absolute top-0 appTotal bg10 container-fluid ${chamar}`}>
                 <div className="top1 row w-100 d-flex justify-content-center align-items-center">
                     <div className="col-8 bg5 rounded-5 p-5">
-                        <p className="text-white fs-5">Senha: <span className="fw-bold">{senha.divison}{senha.senha}</span></p>
+                        <p className="text-white fs-5">Senha: <span className="fw-bold">{senha.division}{senha.senha}</span></p>
                         <div className="container-fluid pt-4">
                             <div className="row mt-5">
                                 <div className="col-6 px-3 d-flex justify-content-center">

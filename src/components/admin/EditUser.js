@@ -29,12 +29,13 @@ function EditUser (){
                     login:user.name
                 }
             }).then((resp) => {
+                console.log(resp)
                 if (resp.data.status){
-                    setUSerInfo(resp.data.data.users[0]);
-                    setTipo(resp.data.data.users[0].tipo);
-                    setLogin(resp.data.data.users[0].login);
-                    setLocal(resp.data.data.users[0].local);
-                    setPassword(resp.data.data.users[0].password)
+                    setUSerInfo(resp.data.data);
+                    setTipo(resp.data.data.tipo);
+                    setLogin(resp.data.data.login);
+                    setLocal(resp.data.data.local);
+                    setPassword(resp.data.data.password)
                 }
                 else{
                     setErros(resp.data.msg);

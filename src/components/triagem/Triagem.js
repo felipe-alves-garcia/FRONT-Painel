@@ -62,7 +62,7 @@ function Triagem (){
             }
         }).then((resp) => {
             if(resp.data.status)
-                imprimirSenha(resp.data.data.senha.senha, local, tipo, resp.data.data.senha.divison)
+                imprimirSenha(resp.data.data.senha.senha, local, tipo, resp.data.data.senha.division)
             else{
                 setErros(resp.data.msg);
                 if(resp.data.msg[0] === "Usuário Inválido"){
@@ -76,7 +76,7 @@ function Triagem (){
 
     //
 
-    function imprimirSenha(senha, local, tipo, divison) {
+    function imprimirSenha(senha, local, tipo, division) {
         const janela = window.open('', '_blank', 'width=800,height=500');
         janela.document.write(`
             <html>
@@ -90,7 +90,7 @@ function Triagem (){
                 </style>
             </head>
             <body onload="window.print(); setTimeout(() => window.close(), 100);">
-                <div class="senha">SENHA:<span style="font-size: 55px">${divison}${senha}</span></div>
+                <div class="senha">SENHA:<span style="font-size: 55px">${division}${senha}</span></div>
                 <div class="local">${local}</div>
                 <div class="tipo">${tipo}</div>
                 <div style="margin-top:5px;">${new Date().toLocaleString()}</div>
@@ -160,7 +160,12 @@ function Triagem (){
             <div className={`position-absolute top-0 appTotal bg10 container-fluid ${senha}`}>
                 <div className="top1 row w-100 d-flex justify-content-center align-items-center">
                     <div className="col-6 bg5 rounded-5 p-5">
-                        <p className="text-white fs-5">Selecione o tipo de senha:</p>
+                        <div className="d-flex justify-content-between">
+                            <p className="text-white fs-5">Selecione o tipo de senha:</p>
+                            <button onClick={(e) => {setSenha("d-none")}} className="bg9 rounded-pill ho1 tx5 fs-5 fw-bold px-3 py-1 m-0">
+                                X
+                            </button>
+                        </div>
                         <div className="container-fluid pt-4">
                             <div className="row mt-5">
                                 <div className="col-6 d-flex justify-content-center">

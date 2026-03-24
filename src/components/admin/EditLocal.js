@@ -29,8 +29,8 @@ function EditLocal (){
                 }
             }).then((resp) => {
                 if(resp.data.status){
-                    setName(resp.data.data.locais[0].name);
-                    setLocal(resp.data.data.locais[0]);
+                    setName(resp.data.data.name);
+                    setLocal(resp.data.data);
                 }
                 else{
                     setErros(resp.data.msg);

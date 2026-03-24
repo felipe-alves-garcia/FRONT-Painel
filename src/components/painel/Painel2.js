@@ -34,11 +34,10 @@ function Painel2 (){
                         token:user.token,
                         login:user.name,    
                     }
-                    
                 }).then( async (resp) => {
                     if (resp.data.status){
-                        setFilaEstado(resp.data.data[0])
-                        setFilaMunicipio(resp.data.data[1])
+                        setFilaEstado(resp.data.data[0].Filas)
+                        setFilaMunicipio(resp.data.data[1].Filas)
                         last(resp.data.data)
                     }
                     else{
@@ -87,18 +86,27 @@ function Painel2 (){
         });
     };
 
-    function last(filas){
+    async function last(filas){
         let buildLast = [];
         for(let f=0; f < filas.length; f++){
-            buildLast[(f*2)+0] = filas[f].lastFila[filas[f].lastFila.length-1];
-            buildLast[(f*2)+1] = filas[f].lastFila[filas[f].lastFila.length-2];
+            try{
+                const resp = await axios.get(`${url}/fila/senhas/last/${id}/${filas[f].name}`, {
+                    headers:{
+                        token:user.token,
+                        login:user.name,    
+                    }
+                })
+                buildLast[(f*2)+0] = resp.data.data[0];
+                buildLast[(f*2)+1] = resp.data.data[1];
+            } catch(error){
+                setErros(["Erro ao listar senhas"]);
+            }
         }
+
         setLastSenhas(buildLast)
     }
 
     //
-
-    if(!filaEstado.fila || !filaMunicipio.fila) return (<><Erro erro={["Não foi possível carregar as senhas"]}/></>);
 
     return (
         <>
@@ -114,7 +122,7 @@ function Painel2 (){
                                 lastSenhas.map((item, index) => {
                                     if(index < 5 && item !== undefined){
                                         return (
-                                            <p key={index} className="text-center m-0 mt-3 mb-1 d-inline fs-3 fw-bold bg4 rounded-5 py-2">&nbsp;{item.divison}{item.senha} - {item.tipo}</p>
+                                            <p key={index} className="text-center m-0 mt-3 mb-1 d-inline fs-3 fw-bold bg4 rounded-5 py-2">&nbsp;{item.division}{item.senha} - {item.tipo}</p>
                                         )    
                                     }
                                 })
@@ -127,8 +135,8 @@ function Painel2 (){
                         </div>
                     </div>
                     <div className="col-md-8 col-lg-9 d-flex justify-content-center align-items-center">
-                        <Senhas fila={filaMunicipio}/>
-                        <Senhas fila={filaEstado}/>
+                        <Senhas local="Município" fila={filaMunicipio}/>
+                        <Senhas local="Estado" fila={filaEstado}/>
                     </div>
                 </div>
             </div>

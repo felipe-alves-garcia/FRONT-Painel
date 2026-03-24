@@ -48,6 +48,7 @@ function Painel (){
                     }
                     
                 }).then( async (resp) => {
+                    console.log(resp)
                     if (resp.data.status){
                         funChamar(resp.data.data)
                     }
@@ -71,21 +72,22 @@ function Painel (){
     //
 
     async function funChamar(filas){
+        console.log(lastSenhas)
         let count = 0;
         for(let i=0; i<filas.length; i++){
             let chamado = false;
             let numSenhas = 0;
-            if (filas[i].fila.length > 0) count++;
-            for(let s=0; s<filas[i].fila.length; s++){
-                if (filas[i].fila[s].chamado === true && filas[i].fila[s].atendido === false){
+            if (filas[i].Filas.length > 0) count++;
+            for(let s=0; s<filas[i].Filas.length; s++){
+                if (filas[i].Filas[s].chamado === true && filas[i].Filas[s].atendido === false){
                     numSenhas++;
                     if(numSenhas)
                     setLocal(filas[i].name)
-                    if (filas[i].fila[s].sublocal === "none"){
-                        filas[i].fila[s].sublocal = "";
+                    if (filas[i].Filas[s].sublocal === "none"){
+                        filas[i].Filas[s].sublocal = "";
                     }
-                    setSenha(filas[i].fila[s]);
-                    if(filas[i].fila[s].tipo === "normal"){
+                    setSenha(filas[i].Filas[s]);
+                    if(filas[i].Filas[s].tipo === "normal"){
                         setPrioridade("text-success-emphasis d-none")
                         setPrioridade2("")
                     } else{
@@ -98,27 +100,27 @@ function Painel (){
 
                     }
                 }
-                else if (filas[i].fila[s].atendido === true){
+                else if (filas[i].Filas[s].atendido === true){
                     let status = false;
                     for (let t=0; t<lastSenhas.length; t++){
                         if(
-                            lastSenhas[t].divison === filas[i].fila[s].divison &&
-                            lastSenhas[t].senha === filas[i].fila[s].senha
+                            lastSenhas[t].division === filas[i].Filas[s].division &&
+                            lastSenhas[t].senha === filas[i].Filas[s].senha
                         ) status = true;
                     }
                     if (!status){
                         let last = lastSenhas;
                         if (lastSenhas.length === 0)
-                            last[lastSenhas.length] = filas[i].fila[s];
+                            last[lastSenhas.length] = filas[i].Filas[s];
                         else{
                             for(let l=lastSenhas.length; l>0; l--){
                                 last[l] = last[l-1];
                             }
-                            last[0] = filas[i].fila[s];
+                            last[0] = filas[i].Filas[s];
                         }
                         setLastSenhas(last);
                         /*let last = [...lastSenhas];
-                        last.unshift(filas[i].fila[s]);
+                        last.unshift(filas[i].Filas[s]);
                         setLastSenhas(last.slice(0, 10)); */
                     }
                 }
@@ -182,7 +184,7 @@ function Painel (){
                             <img className="w-100" src={logo} alt="Prefeitura Municipal de Parobé"/>    
                         </a>
                         <div className="bg4 mt-4 rounded-5">
-                            <p className={`tx2 flex-column fw-bold text-center mt-2 mb-0 d-flex align-items-center justify-content-center ${prioridade2} d-flex`} style={{fontSize:100}}>{senha.divison}{senha.senha} <span className={`ms-2 mt-0 fs-4 up ${prioridade}`}>({senha.tipo})</span></p>
+                            <p className={`tx2 flex-column fw-bold text-center mt-2 mb-0 d-flex align-items-center justify-content-center ${prioridade2} d-flex`} style={{fontSize:100}}>{senha.division}{senha.senha} <span className={`ms-2 mt-0 fs-4 up ${prioridade}`}>({senha.tipo})</span></p>
                             <p className="tx1 fs-2 text-center">{local}{senha.sublocal}</p>
                         </div>
                         <div className="mb-3 d-flex flex-column align-items-center">
@@ -203,7 +205,7 @@ function Painel (){
                                         lastSenhas.map((item, index) => {
                                             if(index < 5){
                                                 return (
-                                                    <p key={index} className="text-center text-white m-0 d-inline fw-bold">&nbsp;{item.divison}{item.senha} - {item.tipo}</p>
+                                                    <p key={index} className="text-center text-white m-0 d-inline fw-bold">&nbsp;{item.division}{item.senha} - {item.tipo}</p>
                                                 )    
                                             }
                                             return <></>
@@ -231,7 +233,7 @@ function Painel (){
                     <Midia link={`https://www.youtube.com/embed/${midia}?autoplay=1&mute=1`}/>
                     <div className="col-12 d-flex flex-column justify-content-between">
                         <div className="bg4 mt-4 rounded-5">
-                            <p className={`tx2 flex-column fw-bold text-center mt-2 mb-0 d-flex align-items-center justify-content-center ${prioridade2} d-flex`} style={{fontSize:130}}>{senha.divison}{senha.senha} <span className={`ms-2 mt-0 fs-4 up ${prioridade}`}>({senha.tipo})</span></p>
+                            <p className={`tx2 flex-column fw-bold text-center mt-2 mb-0 d-flex align-items-center justify-content-center ${prioridade2} d-flex`} style={{fontSize:130}}>{senha.division}{senha.senha} <span className={`ms-2 mt-0 fs-4 up ${prioridade}`}>({senha.tipo})</span></p>
                             <p className="tx1 txs1 text-center">{local}{senha.sublocal}</p>
                         </div>
                     </div>
@@ -241,7 +243,7 @@ function Painel (){
                             lastSenhas.map((item, index) => {
                                 if(index < 5){
                                     return (
-                                        <p key={index} className="txs2 text-white m-0 mb-1">&nbsp;{item.divison}{item.senha} - {item.tipo}</p>
+                                        <p key={index} className="txs2 text-white m-0 mb-1">&nbsp;{item.division}{item.senha} - {item.tipo}</p>
                                     )    
                                 }
                                 return <></>
