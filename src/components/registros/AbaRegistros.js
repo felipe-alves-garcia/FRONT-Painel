@@ -386,7 +386,7 @@ const AbaRegistros = () => {
                                     <div className="w-25 px-2">
                                         <div className="shadow-sm rounded-xl flex py-2 justify-between px-4 bg11 my-1">
                                             <p className="tx2 font-bold">
-                                                {String(day.day).padStart(2, '0')}/{String(filtroMonth).padStart(2, '0')}/{filtroYear}
+                                                {String(day.day - 1).padStart(2, '0')}/{String(filtroMonth).padStart(2, '0')}/{filtroYear}
                                             </p>
                                             <p className="font-bold">
                                                 {day.count}
