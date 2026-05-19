@@ -134,9 +134,11 @@ function Painel2 (){
                             <p className="fs-1 fw-bold my-0 text-white text-center">{formatarHora(dataHoraAtual)}</p>
                         </div>
                     </div>
-                    <div className="col-md-8 col-lg-9 d-flex justify-content-center align-items-center">
-                        <Senhas local="Município" fila={filaMunicipio}/>
-                        <Senhas local="Estado" fila={filaEstado}/>
+                    <div className="col-md-8 col-lg-9 flex flex-column">
+                        <Senhas local="MUNICÍPIO" fila={filaMunicipio}/>
+                        <div className="py-3 hidden rounded-3xl bg1"></div>
+                        <hr className="border-5 bor1"/>
+                        <Senhas local="ESTADO" fila={filaEstado}/>
                     </div>
                 </div>
             </div>

@@ -11,21 +11,30 @@ function Senhas (props){
     const [ senha, setSenha ] = useState({});
     const [ prioridade, setPrioridade ] = useState("text-success-emphasis d-none")
     const [ prioridade2, setPrioridade2 ] = useState("text-success-emphasis")
+    const [ color, setColor] = useState("bg4")
+    const [ colorText, setColorText ] = useState("tx1")
 
     async function funChamar(fila){
-        console.log(fila)
+
         for(let s=0; s<fila.length; s++){
             if (fila[s].chamado === true && fila[s].atendido === false){
+                if(props.local == "ESTADO")
+                    setColor("bg44")
+
                 if (fila[s].sublocal === "none"){
                     fila[s].sublocal = "";
                 }
                 setSenha(fila[s]);
                 if(fila[s].tipo === "normal"){
                     setPrioridade("text-success-emphasis d-none")
-                    setPrioridade2("")
+                    setColorText("tx1")
+                    if(props.local == "ESTADO"){
+                        setColor("bg44")
+                        setColorText("tx3")
+                    }
                 } else{
                     setPrioridade("text-danger")
-                    setPrioridade2("text-danger")
+                    setColorText("text-danger")
                 }
                 try{
                     await audio.play();
@@ -69,10 +78,18 @@ function Senhas (props){
 
     return (
         <>
-            <div className="bg4 mt-4 rounded-5 d-inline-flex flex-column px-5 mx-4">
-                <p className={`px-5 tx1 fw-bold text-center mt-1 mb-0 d-inline align-items-center justify-content-center ${prioridade2}`} style={{fontSize:160}}>{senha.division}{senha.senha} </p>
-                <p className={`ms-2 tx2 text-center mt-0 fs-2 up m-0 ${prioridade}`} >({senha.tipo})</p>
-                <p className="fs-1 text-center fw-bold d-inline pb-3 mx-0">{props.local}{senha.sublocal}</p>    
+            <div className="h-50 flex flex-column">
+                <div>
+                <p className="font-bold text-[50px] mt-3 text-center">{props.local}</p>
+
+                </div>
+                <div className={` ${color} flex-auto m-5 mt-3 flex justify-center `}>
+                    <div className="flex items-center justify-center">
+                        <p className={`${colorText} m-0 pr-2 font-medium text-[180px]`} >{senha.division}{senha.senha} </p>
+                        <p className={`tx2 m-0 text-[70px] pr-2 ${prioridade}`} >{senha.tipo}</p>
+                        <p className={`${colorText} font-bold text-[70px]`}>{senha.sublocal}</p>       
+                    </div>
+                </div>
             </div>
         </>
     )

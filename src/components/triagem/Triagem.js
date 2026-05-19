@@ -135,7 +135,7 @@ function Triagem (){
             
             <div className="container-fluid mt-5">
                 <div className="row mb-5 pt-5">
-                    <div className="col-xl-8">
+                    <div className="col-xl-12">
                         <div className="container">
                             <div className="row">
                                 {
@@ -159,26 +159,14 @@ function Triagem (){
                             </div>
                         </div>
                     </div>
-                    <div className="col-xl-4 border-start">
-                        {
-                            locais.map((item) => {
-                                return item.Registros.map((r, index) => {
-
-                                    return (
-                                        <div className="px-4 mb-3">
-                                            <p className="fw-bold fs-5 w-100">{item.name}</p> 
-                                            <div className="border border-3 py-2 px-4 px-sm-5 w-100 rounded-5 d-flex justify-content-between mt-2">
-                                                <p className="d-inline tx1 fw-bold m-0">{r.data}: </p>   
-                                                <p className="d-inline m-0">{r.numRegistros} Senhas</p>    
-                                            </div>
-                                            
-                                        </div>
-                                    )
-                                })
-                            })
-                        }
-                    </div>
                 </div>
+                <div className="absolute bottom-5 right-5 pr-5 mb-3 ho2">
+                    <a href={`/registros/unidade/${id}`} className="mb-2 a ho1 text-white bg1 d-block fs-5 rounded-pill px-5 py-2">
+                        <i className="bi bi-file-earmark-text me-3"></i>
+                        Registros
+                    </a>    
+                </div>
+                
             </div>
             <div className={`position-absolute top-0 appTotal bg10 container-fluid ${senha}`}>
                 <div className="top1 row w-100 d-flex justify-content-center align-items-center">

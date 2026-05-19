@@ -53,7 +53,7 @@ function Atendimento (){
     const [ chamar, setChamar ] = useState("d-none");
     const [ senha, setSenha ] = useState({});
 
-    function funChamar (){
+    function funChamar (force){
         axios.put(`${url}/fila/senha/chamar/${id}/${user.local}/${sublocal}`, {},{
             headers:{
                 token:user.token,
@@ -62,8 +62,14 @@ function Atendimento (){
             }
         }).then((resp) => {
             if (resp.data.status || resp.data.msg[0] === "Chamada Existente"){
-                setChamar("d-block")
-                setSenha(resp.data.data.senhaChamada);
+                if(resp.data.status || force){
+                    setChamar("d-block")
+                    setSenha(resp.data.data.senhaChamada);
+                }
+                else if(!force){
+                    setErros(["JÁ EXISTE UM CHAMADO EXISTENTE, TENTE MAIS TARDE"])
+                }
+                console.log(resp)
             }
             else{
                 setErros(resp.data.msg);
@@ -85,9 +91,11 @@ function Atendimento (){
                 user:user.tipo
             }
         }).then((resp) => {
+            console.log(resp.data)
             if (resp.data.status)
                 setChamar("d-none")
             else{
+                setChamar("d-none")
                 setErros(resp.data.msg);
                 if (resp.data.msg[0] === "Usuário Inválido")
                     setTimeout(() => {navigate("/login")}, 3000);
@@ -118,7 +126,7 @@ function Atendimento (){
         <>
             <Header back="/login"/>
             <Erro erro={erros}/>
-            <div className="container">
+            <div className="container sm:px-5">
                 <div className="row px-2 px-md-0">
                     <div className="col-12 bg4 border border-none p-5 mt-5 tx1 rounded-5">
                         <h1 className="fw-bold fs-2 mb-4">Senhas</h1>
@@ -128,13 +136,12 @@ function Atendimento (){
                                 let tipo = "bg3"
                                 if (senha.tipo === "normal")
                                     tipo = "bg2"
-                                console.log(senha)
 
                                 return(
                                     <div className="px-md-4 col-12" key={i}>
                                         <div className="container-fluid">
                                             <div className="row pb-3">
-                                                <hr className="col-12"/>
+                                                <hr className="col-12 mb-3"/>
                                                 <p className="px-4 py-2 m-0 fw-bold col-3 col-sm-6 col-md-9 col-lg-10">{senha.division}{senha.senha}</p>
                                                 <div className="col-9 col-sm-6 col-md-3 col-lg-2">
                                                     <div className={`p-2 ${tipo} text-white text-center rounded-1`}><p className="m-0">{senha.tipo}</p></div>
@@ -149,7 +156,7 @@ function Atendimento (){
                     </div>
                     <div className="col-12 mb-5 pb-5">
                         <div className="d-flex justify-content-center mt-5">
-                            <button type="button" onClick={ () => {funChamar()}} className="ho1 mt-5 p-3 px-5 bg1 text-white fw-bold rounded-pill border border-0">
+                            <button type="button" onClick={ () => {funChamar(false)}} className="ho1 mt-5 p-3 px-5 bg1 text-white fw-bold rounded-pill border border-0">
                                 Chamar
                                 <i className="ps-3 bi bi-volume-up-fill"></i>
                             </button>
@@ -160,7 +167,12 @@ function Atendimento (){
             <div className={`position-absolute top-0 appTotal bg10 container-fluid ${chamar}`}>
                 <div className="top1 row w-100 d-flex justify-content-center align-items-center">
                     <div className="col-8 bg5 rounded-5 p-5">
-                        <p className="text-white fs-5">Senha: <span className="fw-bold">{senha.division}{senha.senha}</span></p>
+                        <div className="d-flex justify-content-between">
+                            <p className="text-white fs-5">Senha: <span className="fw-bold">{senha.division}{senha.senha}</span></p>
+                            <button onClick={(e) => {setChamar("d-none")}} className="hidden bg9 rounded-pill ho1 tx5 fs-5 fw-bold px-3 py-1 m-0">
+                                X
+                            </button>
+                        </div>
                         <div className="container-fluid pt-4">
                             <div className="row mt-5">
                                 <div className="col-6 px-3 d-flex justify-content-center">
@@ -196,6 +208,13 @@ function Atendimento (){
                     </div>
                 </div>
             </div>
+            
+            <div className="d-flex absolute right-0 bottom-0 justify-content-center mb-3 me-3 scale-75">
+                <button type="button" onClick={ () => {funChamar(true)}} className="ho2 p-3 px-5 bg3 text-white fw-bold rounded-pill border border-0">
+                    Forçar Chamado
+                    <i className="ps-3 bi bi-volume-up-fill"></i>
+                </button>
+            </div>    
         </>
     )
 }

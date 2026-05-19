@@ -126,7 +126,7 @@ function EditUser (){
         <>
             <Header back="link"/>
             <Erro erro={erros}/>
-            <div className="container mt-5">
+            <div className="container sm:px-5 mt-5">
                 <div className="row px-2 px-sm-0">
                     <div id="divUnidade" className="col-12 p-5 rounded-5">
                         <h1 className="text-white fs-3 mb-5 pb-5">{userInfo.login}</h1>

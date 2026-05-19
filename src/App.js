@@ -12,11 +12,12 @@ import EditLocal from "./components/admin/EditLocal"
 import AddUnidade from "./components/admin/AddUnidade"
 import AddLocal from './components/admin/AddLocal';
 import AddUser from './components/admin/AddUser';
-import Registros from "./components/admin/Registros"
 
 import Triagem from './components/triagem/Triagem';
 
 import Atendimento from './components/atendimento/Atendimento';
+
+import AbaRegistros from './components/registros/AbaRegistros';
 
 import Painel from "./components/painel/Painel"
 import Painel2 from "./components/painel/Painel2"
@@ -37,9 +38,10 @@ function App() {
           <Route path="/admin/unidade/add" element={<AddUnidade/>}/>
           <Route path="/admin/unidade/local/add/:id" element={<AddLocal/>}/>
           <Route path="/admin/unidade/user/add/:id" element={<AddUser/>}/>
-          <Route path="/admin/unidade/registros/:id" element={<Registros/>}/>
 
           <Route path="/triagem/unidade/:id" element={<Triagem/>}/>
+
+          <Route path="/Registros/unidade/:id" element={<AbaRegistros />}/>
 
           <Route path="/atendimento/unidade/:id" element={<Atendimento/>}/>
 

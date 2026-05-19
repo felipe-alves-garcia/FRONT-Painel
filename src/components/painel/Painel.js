@@ -183,7 +183,7 @@ function Painel (){
                         <a href="/login" className="a ho1 w-100 px-3 pe-4 my-4">
                             <img className="w-100" src={logo} alt="Prefeitura Municipal de Parobé"/>    
                         </a>
-                        <div className="bg4 mt-4 rounded-5">
+                        <div className="bg4 pb-3 mt-4 rounded-5">
                             <p className={`tx2 flex-column fw-bold text-center mt-2 mb-0 d-flex align-items-center justify-content-center ${prioridade2} d-flex`} style={{fontSize:100}}>{senha.division}{senha.senha} <span className={`ms-2 mt-0 fs-4 up ${prioridade}`}>({senha.tipo})</span></p>
                             <p className="tx1 fs-2 text-center">{local}{senha.sublocal}</p>
                         </div>

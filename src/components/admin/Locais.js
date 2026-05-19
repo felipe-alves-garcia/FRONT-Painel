@@ -55,7 +55,7 @@ function Locais (){
         <>
             <Header back="link"/>
             <Erro erro={erros}/>
-            <div className="container mt-5">
+            <div className="container mt-5 sm:px-5">
                 <div className="row mb-5 px-sm-0 px-2">
                     <div id="divUnidade" className="col-12 p-5 mb-5 rounded-5">
                         <h1 className="text-white fs-3 mb-5 pb-5">{unidadeName} - Locais</h1>

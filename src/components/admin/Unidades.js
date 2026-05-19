@@ -35,7 +35,7 @@ function Unidades (){
             <Header back="/login"/>
             <Erro erro={erros}/>
             <main>
-                <div className="container-fluid px-sm-5 pb-5">
+                <div className="container-fluid sm:px-5 pb-5">
                     <div className="row">
                         <div className="col-12 mt-5">
                             <h1 className="fw-bold fs-2 mt-4 mb-5">UNIDADES</h1>
@@ -57,7 +57,7 @@ function Unidades (){
                                                     <i className="bi bi-building-fill me-3"></i>
                                                     Locais
                                                 </a>
-                                                <a href={`/admin/unidade/registros/${item._id}`} className="mb-2 a ho1 text-white bg2 d-block fs-5 rounded-pill px-4 py-2">
+                                                <a href={`/registros/unidade/${item._id}`} className="mb-2 a ho1 text-white bg2 d-block fs-5 rounded-pill px-4 py-2">
                                                     <i className="bi bi-file-earmark-text me-3"></i>
                                                     Registros
                                                 </a>
