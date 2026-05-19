@@ -38,7 +38,6 @@ function Painel2 (){
                     if (resp.data.status){
                         setFilaEstado(resp.data.data[0].Filas)
                         setFilaMunicipio(resp.data.data[1].Filas)
-                        carregarTemperatura()
                         last(resp.data.data)
                     }
                     else{
@@ -123,7 +122,7 @@ function Painel2 (){
         }
 
         carregarTemperatura();
-    }, []);
+    }, [filaMunicipio]);
 
     return (
         <>
