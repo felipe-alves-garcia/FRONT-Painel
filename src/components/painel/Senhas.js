@@ -84,10 +84,10 @@ function Senhas (props){
 
                 </div>
                 <div className={` ${color} flex-auto m-5 mt-3 flex justify-center `}>
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center justify-center relative">
                         <p className={`${colorText} m-0 pr-2 font-medium text-[180px]`} >{senha.division}{senha.senha} </p>
-                        <p className={`tx2 m-0 text-[70px] pr-2 ${prioridade}`} >{senha.tipo}</p>
-                        <p className={`${colorText} font-bold text-[70px]`}>{senha.sublocal}</p>       
+                        <p className={`${colorText} m-0 font-bold text-[110px]`}>{senha.sublocal}</p>    
+                        <p className={`tx2 absolute bottom-0 text-[70px] ${prioridade}`} >{senha.tipo}</p>
                     </div>
                 </div>
             </div>

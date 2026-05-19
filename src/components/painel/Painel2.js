@@ -108,6 +108,22 @@ function Painel2 (){
 
     //
 
+    const [temperatura, setTemperatura] = useState(null);
+
+    useEffect(() => {
+        async function carregarTemperatura() {
+        const url =
+            "https://api.open-meteo.com/v1/forecast?latitude=-29.628&longitude=-50.833&current_weather=true";
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        setTemperatura(data.current_weather.temperature);
+        }
+
+        carregarTemperatura();
+    }, []);
+
     return (
         <>
             <Erro erro={erros}/>
@@ -122,16 +138,23 @@ function Painel2 (){
                                 lastSenhas.map((item, index) => {
                                     if(index < 5 && item !== undefined){
                                         return (
-                                            <p key={index} className="text-center m-0 mt-3 mb-1 d-inline fs-3 fw-bold bg4 rounded-5 py-2">&nbsp;{item.division}{item.senha} - {item.tipo}</p>
+                                            <p key={index} className="text-center m-0 mt-3 mb-1 d-inline fs-3 fw-bold bg4 rounded-5 py-2">&nbsp;{item.division}{item.senha}{(item.tipo == "normal") ? <span></span> : <span> - {item.tipo}</span>}</p>
                                         )    
                                     }
                                 })
                             }
                         </div>
                         <div className="mb-3 d-flex flex-column align-items-center">
-                            <p className="fs-4 mb-2 text-white text-center">{formatarData(dataHoraAtual)}</p>
+                            <p className="fs-4 mb-2 text-white text-center">{formatarData(dataHoraAtual)} - {dataHoraAtual.toLocaleDateString("pt-BR", {weekday:"long"})}</p>
                             <hr className="m-0 border border-white w-75"></hr>
-                            <p className="fs-1 fw-bold my-0 text-white text-center">{formatarHora(dataHoraAtual)}</p>
+                            <p className="fs-1 fw-bold flex items-center my-0 text-white text-center">
+                                {formatarHora(dataHoraAtual)}
+                                <div className="font-medium pl-3">
+                                    {temperatura !== null
+                                    ? ` - ${temperatura}°C`
+                                    : "..."}
+                                </div>
+                            </p>
                         </div>
                     </div>
                     <div className="col-md-8 col-lg-9 flex flex-column">
