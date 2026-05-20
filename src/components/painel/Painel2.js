@@ -151,7 +151,7 @@ function Painel2 (){
                                 {formatarHora(dataHoraAtual)}
                                 <div className="font-medium pl-3">
                                     {temperatura !== null
-                                    ? ` - ${temperatura}°C`
+                                    ? ` | ${temperatura}°C`
                                     : "..."}
                                 </div>
                             </p>
